@@ -21,7 +21,8 @@ class GameDetails extends PureComponent {
 
   makeMove = (toRow, toCell) => {
     const {game, updateGame} = this.props
-
+    console.log(game.turn)
+    console.log(game)
     const board = game.board.map(
       (row, rowIndex) => row.map((cell, cellIndex) => {
         if (rowIndex === toRow && cellIndex === toCell) return game.turn
