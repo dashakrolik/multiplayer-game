@@ -22,19 +22,34 @@ class GameDetails extends PureComponent {
   makeMove = (toRow, toCell) => {
     const {game, updateGame} = this.props
     console.log(game.turn)
+    if (game.turn) {
+      return console.log('game.turn / GameDetails / User clicked on cell')
+    }
     console.log(game)
     const board = game.board.map(
       (row, rowIndex) => row.map((cell, cellIndex) => {
-        if (rowIndex === toRow && cellIndex === toCell) return game.turn
+        if (rowIndex === toRow && cellIndex === toCell) 
+        return game.turn 
         else return cell
       })
     )
+
     updateGame(game.id, board)
   }
 
+    // Hit the Ship function added by Dasha, still in process
+    hitCell = (coordinate1, coordinate2) => {
+      if (this.game.turn && this.cell !== null) {
+        
+      }
+    }
+  
+
+  
 
 
   render() {
+
     const {game, users, authenticated, userId} = this.props
 
     if (!authenticated) return (
@@ -79,15 +94,20 @@ class GameDetails extends PureComponent {
         <Board board={game.board} makeMove={this.makeMove} />
       }
     </Paper>)
-  }
+    
+  } 
 }
 
+//added userClicked state to props
 const mapStateToProps = (state, props) => ({
   authenticated: state.currentUser !== null,
   userId: state.currentUser && userId(state.currentUser.jwt),
   game: state.games && state.games[props.match.params.id],
-  users: state.users
+  users: state.users,
+  userClicked: state.userClicked
 })
+
+
 
 const mapDispatchToProps = {
   getGames, getUsers, joinGame, updateGame
