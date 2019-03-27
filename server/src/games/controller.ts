@@ -4,15 +4,15 @@ import {
 } from 'routing-controllers'
 import User from '../users/entity'
 import { Game, Player, Board } from './entities'
-import {IsBoard, isValidTransition, calculateWinner, finished} from './logic'
-import { Validate } from 'class-validator'
+// import {IsBoard, isValidTransition, calculateWinner, finished} from './logic'
+// import { Validate } from 'class-validator'
 import {io} from '../index'
 
 class GameUpdate {
 
-  @Validate(IsBoard, {
-    message: 'Not a valid board'
-  })
+  // @Validate(IsBoard, {
+  //   message: 'Not a valid board'
+  // })
   board: Board
 }
 
@@ -88,29 +88,29 @@ export default class GameController {
 
     if (!player) throw new ForbiddenError(`You are not part of this game`)
     if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
-    if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)
-    if (!isValidTransition(player.symbol, game.board, update.board)) {
-      throw new BadRequestError(`Invalid move`)
-    }    
+    // if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)
+    // if (!isValidTransition(player.symbol, game.board, update.board)) {
+    //   throw new BadRequestError(`Invalid move`)
+    // }    
 
-    const winner = calculateWinner(update.board)
-    if (winner) {
-      game.winner = winner
-      game.status = 'finished'
-    }
-    else if (finished(update.board)) {
-      game.status = 'finished'
-    }
-    else {
-      game.turn = player.symbol === 'x' ? 'o' : 'x'
-    }
-    game.board = update.board
-    await game.save()
+    // const winner = calculateWinner(update.board)
+    // if (winner) {
+    //   game.winner = winner
+    //   game.status = 'finished'
+    // }
+    // else if (finished(update.board)) {
+    //   game.status = 'finished'
+    // }
+    // else {
+    //   game.turn = player.symbol === 'x' ? 'o' : 'x'
+    // }
+    // game.board = update.board
+    // await game.save()
     
-    io.emit('action', {
-      type: 'UPDATE_GAME',
-      payload: game
-    })
+    // io.emit('action', {
+    //   type: 'UPDATE_GAME',
+    //   payload: game
+    // })
 
     return game
   }
