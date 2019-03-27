@@ -19,40 +19,56 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
+  //the coordinates are stored here we think
   makeMove = (toRow, toCell) => {
     const {game, updateGame} = this.props
     console.log(game.turn)
     if (game.turn) {
-      return console.log('game.turn / GameDetails / User clicked on cell')
+      return console.log(toRow, toCell)
+    //make an action creator and a reducer for this function
     }
-    console.log(game)
+    
     const board = game.board.map(
       (row, rowIndex) => row.map((cell, cellIndex) => {
         if (rowIndex === toRow && cellIndex === toCell) 
-        return game.turn 
+        return game.turn //get this function to return the index here? 
         else return cell
       })
     )
+    
+    //use object.keys to get the indexes
+
 
     updateGame(game.id, board)
   }
 
+
+    //record coordinates - how?? to pass to hitCell function
+    //we need to add an event listener?
+    // coordinate1 = game.board.map()
+    
+    // getCoordinates = (e) => {
+    //   target = e.target.value
+    //   return target
+    // }
+
     // Hit the Ship function added by Dasha, still in process
-    //Darlene will provide a function that returns coordinates (taken from the key value in GameDetails)
+    //I will provide a function that returns coordinates (taken from the key value in GameDetails)
     //after hitCell returns userClicked we will know which cell the user clicked on
     //we can then pass userClicked as props to the presentational children componenents
     //and when we do that we can render smth displaying a hit in the presentational component once that has been done
-    
-    hitCell = (coordinate1, coordinate2) => {
+
+    userHit = (coordinate1, coordinate2) => {
       if (this.game.turn && this.cell !== null) {
-        const userClicked = 'Hit'
-        return userClicked
+        return false
+      } 
+      if (this.game.turn && this.cell === null) {
+        return true
       }
     }
     
 
   render() {
-    console.log(this.hitCell)
 
     const {game, users, authenticated, userId} = this.props
 
@@ -108,7 +124,7 @@ const mapStateToProps = (state, props) => ({
   userId: state.currentUser && userId(state.currentUser.jwt),
   game: state.games && state.games[props.match.params.id],
   users: state.users,
-  userClicked: state.userClicked
+  userHit: state.userHit
 })
 
 

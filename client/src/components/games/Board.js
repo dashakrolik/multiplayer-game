@@ -2,7 +2,7 @@ import React from 'react'
 import './Board.css'
 
 const renderCel = (makeMove, rowIndex, cellIndex, symbol, hasTurn) => {
-
+// console.log(rowIndex, cellIndex)
   return (
     <button
       className="board-tile"
@@ -13,8 +13,9 @@ const renderCel = (makeMove, rowIndex, cellIndex, symbol, hasTurn) => {
   )
 }
 
-export default ({board, makeMove}) => board.map((cells, rowIndex) =>
-  <div key={rowIndex}>
+//added value1 and value2 - does not break anything YET
+export default ({board, makeMove}) => board.map((cells, rowIndex, cellIndex) =>
+  <div key={rowIndex} value1={rowIndex} value2={cellIndex}>
     {cells.map((symbol, cellIndex) => renderCel(makeMove, rowIndex, cellIndex,symbol,false))}
   </div>
 )

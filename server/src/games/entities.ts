@@ -29,7 +29,7 @@ export class Game extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
-  @Column('json', {default: emptyBoard})
+  @Column('json', {default: samplePlayBoard})
   board: Board
 
   @Column('char', {length:1, default: 'x'})
