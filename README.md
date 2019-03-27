@@ -1,7 +1,7 @@
 # Battleship Game Clone Design
 Team: Darlene Decena & Daria Epaneshnikova
 
-##Overview: 
+## Overview: 
 Build a full-stack, multiplayer game using Typescript, Koa, routing-controllers and TypeORM in the backend and React/Redux in the frontend. The backend exposes a REST API, but also sends messages over websockets using SocketIO. 
 
 The game is a clone of the popular, grid-based strategy game Battleship. 
