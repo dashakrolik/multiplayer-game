@@ -6,9 +6,9 @@ export class IsBoard implements ValidatorConstraintInterface {
 
   validate(board: Board) {
     const symbols = [ 'x', 'o', null ]
-    return board.length === 3 &&
+    return board.length === 10 &&
       board.every(row =>
-        row.length === 3 &&
+        row.length === 10 &&
         row.every(symbol => symbols.includes(symbol))
       )
   }
@@ -30,22 +30,14 @@ export const isValidTransition = (playerSymbol: Symbol, from: Board, to: Board) 
     changes[0].from === null
 }
 
-export const calculateWinner = (board: Board): Symbol | null =>
-  board
-    .concat(
-      // vertical winner
-      [0, 1, 2].map(n => board.map(row => row[n])) as Row[]
-    )
-    .concat(
-      [
-        // diagonal winner ltr
-        [0, 1, 2].map(n => board[n][n]),
-        // diagonal winner rtl
-        [0, 1, 2].map(n => board[2-n][n])
-      ] as Row[]
-    )
-    .filter(row => row[0] && row.every(symbol => symbol === row[0]))
-    .map(row => row[0])[0] || null
+export const calculateWinner = (board: Board) => {
+  // to calculate winner we would map through each player's board and
+  // count how many successful hits are on a board
+  // a winner is defined by having 17 hits
+  return board.reduce((agg, arr) => 
+          agg + arr.reduce((agg2, cell: Symbol | null) => 
+            (cell === 'x') ? agg2 + 1 : agg2 + 0, 0), 0)
+}
 
 export const finished = (board: Board): boolean =>
   board
