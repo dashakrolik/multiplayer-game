@@ -24,8 +24,9 @@ class CustomNamingStrategy extends DefaultNamingStrategy implements NamingStrate
   }
 }
 
-export default () =>
-  createConnection({
+export default () => {
+  console.log('HELLLLLOOOOOOO')
+  return createConnection({
     type: "postgres",
     url: process.env.DATABASE_URL || 'postgres://postgres:secret@localhost:5432/postgres',
     entities: [
@@ -38,3 +39,4 @@ export default () =>
     namingStrategy: new CustomNamingStrategy()
   })
     .then(_ => console.log('Connected to Postgres with TypeORM'))
+}
