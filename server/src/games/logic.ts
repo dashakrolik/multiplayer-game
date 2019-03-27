@@ -48,12 +48,13 @@ export const calculateWinner = (board: Board) => {
   // to calculate winner we would map through each player's board and
   // count how many successful hits are on a board
   // a winner is defined by having 17 hits
-  return board.reduce((agg, arr) => 
+  const totalHits =  board.reduce((agg, arr) => 
           agg + arr.reduce((agg2, cell: Symbol | null) => 
             (cell === 'x') ? agg2 + 1 : agg2 + 0, 0), 0)
+  return totalHits === 17
 }
 
-export const finished = (board: Board): boolean =>
-  board
-    .reduce((a,b) => a.concat(b) as Row)
-    .every(symbol => symbol !== null)
+// export const finished = (board: Board): boolean =>
+//   board
+//     .reduce((a,b) => a.concat(b) as Row)
+//     .every(symbol => symbol !== null)
