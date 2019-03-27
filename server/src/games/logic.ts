@@ -5,10 +5,10 @@ import { Board, Symbol, Row } from './entities'
 export class IsBoard implements ValidatorConstraintInterface {
 
   validate(board: Board) {
-    const symbols = [ 'x', 'o', null ]
-    return board.length === 3 &&
+    const symbols = [ 'x', 'o', 'A', 'B', 'C', 'D', 'E', null ]
+    return board.length === 10 &&
       board.every(row =>
-        row.length === 3 &&
+        row.length === 10 &&
         row.every(symbol => symbols.includes(symbol))
       )
   }
@@ -28,6 +28,20 @@ export const isValidTransition = (playerSymbol: Symbol, from: Board, to: Board) 
   return changes.length === 1 && 
     changes[0].to === playerSymbol && 
     changes[0].from === null
+}
+
+export const playerHit = (board: Board, 
+  coordinate1: number, 
+  coordinate2: number) =>  {
+let targetCell = board[coordinate1][coordinate2];
+// missed shot
+(targetCell === null) ? targetCell = 'o' :
+// successful hit
+(targetCell === 'A' || targetCell === 'B' || targetCell === 'C' || 
+targetCell === 'D' || targetCell === 'E') ? targetCell = 'x' :
+// previous target
+// (targetCell === 'x' || targetCell === 'o') 
+console.log("Shot already fired at these coordinates") 
 }
 
 export const calculateWinner = (board: Board): Symbol | null =>
