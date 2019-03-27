@@ -8,6 +8,19 @@ export type Board = [ Row, Row, Row, Row, Row, Row, Row, Row, Row, Row ]
 
 const emptyBoard = [...Array(10)].map(x => Array(10).fill(null))
 
+const samplePlayBoard = [
+  [ 'A', null, null, null, null, null, 'D', 'D', 'D', null ],
+  [ 'A', null, null, null, null, null, null, null, null, null ],
+  [ 'A', null, null, null, null, null, null, null, null, null ],
+  [ 'A', null, null, null, null, null, null, null, null, null ],
+  [ 'A', null, null, 'E', 'E', null, null, null, null, null ],
+  [ null, null, null, null, null, null, null, null, null, null ],
+  [ null, null, null, null, null, null, null, null, null, 'B' ],
+  [ null, null, null, null, null, null, null, null, null, 'B' ],
+  [ null, null, null, null, null, null, null, null, null, 'B' ],
+  [ null, null, null, 'C', 'C', 'C', null, null, null, 'B' ]
+]
+
 type Status = 'pending' | 'started' | 'finished'
 
 @Entity()
