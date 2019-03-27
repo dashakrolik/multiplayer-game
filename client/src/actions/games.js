@@ -81,3 +81,12 @@ export const updateGame = (gameId, board) => (dispatch, getState) => {
     .then(_ => dispatch(updateGameSuccess()))
     .catch(err => console.error(err))
 }
+
+
+//@DARLENE, I am working on this action creator, still in process. If uncommented it breaks everything
+// export const sendCoordinates = (gameId, board) => (dispatc, getState) => {
+//   const state = getState()
+//   const jwt = state.currentUser.jwt
+
+//   if (isExpired(jwt)) return dispatch(logout())
+// }
