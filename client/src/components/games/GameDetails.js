@@ -38,17 +38,21 @@ class GameDetails extends PureComponent {
   }
 
     // Hit the Ship function added by Dasha, still in process
+    //Darlene will provide a function that returns coordinates (taken from the key value in GameDetails)
+    //after hitCell returns userClicked we will know which cell the user clicked on
+    //we can then pass userClicked as props to the presentational children componenents
+    //and when we do that we can render smth displaying a hit in the presentational component once that has been done
+    
     hitCell = (coordinate1, coordinate2) => {
       if (this.game.turn && this.cell !== null) {
-        
+        const userClicked = 'Hit'
+        return userClicked
       }
     }
-  
-
-  
-
+    
 
   render() {
+    console.log(this.hitCell)
 
     const {game, users, authenticated, userId} = this.props
 
@@ -106,7 +110,6 @@ const mapStateToProps = (state, props) => ({
   users: state.users,
   userClicked: state.userClicked
 })
-
 
 
 const mapDispatchToProps = {
