@@ -14,20 +14,43 @@ export class IsBoard implements ValidatorConstraintInterface {
   }
 }
 
-export const isValidTransition = (playerSymbol: Symbol, from: Board, to: Board) => {
-  const changes = from
-    .map(
-      (row, rowIndex) => row.map((symbol, columnIndex) => ({
-        from: symbol, 
-        to: to[rowIndex][columnIndex]
-      }))
-    )
-    .reduce((a,b) => a.concat(b))
-    .filter(change => change.from !== change.to)
+// export const isValidTransition = (playerSymbol: Symbol, from: Board, to: Board) => {
+//   const changes = from
+//     .map(
+//       (row, rowIndex) => row.map((symbol, columnIndex) => ({
+//         from: symbol, 
+//         to: to[rowIndex][columnIndex]
+//       }))
+//     )
+//     .reduce((a,b) => a.concat(b))
+//     .filter(change => change.from !== change.to)
 
-  return changes.length === 1 && 
-    changes[0].to === playerSymbol && 
-    changes[0].from === null
+//   return changes.length === 1 && 
+//     changes[0].to === playerSymbol && 
+//     changes[0].from === null
+// }
+
+export const ships = {
+  "Carrier": {
+    shipSymbol: 'A',
+    length: 5
+  }, 
+  "Battleship": {
+    shipSymbol: 'B',
+    length: 4
+  }, 
+  "Cruiser": {
+    shipSymbol: 'C',
+    length: 3
+  },
+  "Submarine": {
+    shipSymbol: 'D',
+    length: 3
+  },
+  "Destroyer": {
+    shipSymbol: 'E',
+    length: 2
+  }
 }
 
 export const playerHit = (board: Board, 
