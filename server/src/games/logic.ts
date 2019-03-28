@@ -56,7 +56,7 @@ export class IsBoard implements ValidatorConstraintInterface {
 //     changes[0].from === null
 // }
 
-export const ships = {
+const ships = {
   "Carrier": {
     shipSymbol: 'A',
     length: 5
@@ -79,6 +79,8 @@ export const ships = {
   }
 }
 
+
+
 export const playerHit = (board: Board, 
   coordinate1: number, 
   coordinate2: number) =>  {
@@ -88,9 +90,10 @@ let targetCell = board[coordinate1][coordinate2];
 // successful hit
 (targetCell === 'A' || targetCell === 'B' || targetCell === 'C' || 
 targetCell === 'D' || targetCell === 'E') ? targetCell = 'x' :
-// previous target
-// (targetCell === 'x' || targetCell === 'o') 
-console.log("Shot already fired at these coordinates") 
+// previous target (targetCell === 'x' || targetCell === 'o') 
+targetCell
+board[coordinate1][coordinate2] = targetCell
+return board
 }
 
 // need to connect board to a user
@@ -106,3 +109,4 @@ export const calculateWinner = (board: Board) => {
 //   board
 //     .reduce((a,b) => a.concat(b) as Row)
 //     .every(symbol => symbol !== null)
+
