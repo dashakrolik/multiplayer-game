@@ -4,7 +4,7 @@ import {
 } from 'routing-controllers'
 import User from '../users/entity'
 import { Game, Player, Board } from './entities'
-import {calculateWinner, samplePlayBoard1, samplePlayBoard2} from './logic'
+import {calculateWinner, playerHit, samplePlayBoard1, samplePlayBoard2} from './logic'
 // import { Validate } from 'class-validator'
 import {io} from '../index'
 
@@ -61,7 +61,7 @@ export default class GameController {
     const player = await Player.create({
       
       game, 
-      board: 'board2',
+      board: "board2",
       user,
       symbol: 'z'
     }).save()
@@ -96,25 +96,43 @@ export default class GameController {
     // if (!isValidTransition(player.symbol, game.board, update.board)) {
     //   throw new BadRequestError(`Invalid move`)
     // }    
+    let aBoard = game.board1
+    let playerInPlay = 'y'
+    if (player.symbol === 'z'){
+      aBoard = game.board2
+      playerInPlay = 'z'
+    }
+    const updatedBoardAfterMove = playerHit(
+        aBoard,
+        update.coordinates.toRow, 
+        update.coordinates.toCell
+      )
+
 
     
+
     
+    if (playerInPlay === 'y') {
+      game.board1 = updatedBoardAfterMove
+    } else {
+      game.board2 = updatedBoardAfterMove
+    }
+
     let winner = null
-    const checkBoard1 = calculateWinner(update.board1);
-    const checkBoard2 = calculateWinner(update.board2);
+    const checkBoard1 = calculateWinner(game.board1);
+    const checkBoard2 = calculateWinner(game.board2);
     if ((checkBoard1 === true && game[player.board] === 'board1') ||
     (checkBoard2 === true && game[player.board] === 'board2')) {
           game.winner = player.symbol 
           game.status = 'finished'
     }
-  
+
     else {
       game.turn = player.symbol === 'y' ? 'z' : 'y'
     }
-    game.board1 = update.board1
-    game.board2 = update.board2
+
     await game.save()
-    
+
     io.emit('action', {
       type: 'UPDATE_GAME',
       payload: game
@@ -137,4 +155,3 @@ export default class GameController {
     return Game.find()
   }
 }
-
