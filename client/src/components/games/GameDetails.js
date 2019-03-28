@@ -18,6 +18,7 @@ class GameDetails extends PureComponent {
     }
   }
 
+  virusImage = <img src="http://i67.tinypic.com/j5knr7.png"></img>
   joinGame = () => this.props.joinGame(this.props.game.id)
 
 
@@ -99,7 +100,7 @@ class GameDetails extends PureComponent {
       board 1
       {
         game.status !== 'pending' &&
-        <Board board={game.board1} makeMove={this.makeMove} />
+        <Board board={game.board1} makeMove={this.makeMove} virusImage={this.virusImage}/>
       }
 
       board 2
