@@ -14,61 +14,46 @@ class GameDetails extends PureComponent {
     if (this.props.authenticated) {
       if (this.props.game === null) this.props.getGames()
       if (this.props.users === null) this.props.getUsers()
+      
     }
   }
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
-  //the coordinates are stored here we think
+
   makeMove = (toRow, toCell) => {
     const {game, updateGame} = this.props
-    console.log(game.turn)
-    if (game.turn) {
-      return console.log(toRow, toCell)
-    //make an action creator and a reducer for this function
-    }
-    
-    const board = game.board.map(
-      (row, rowIndex) => row.map((cell, cellIndex) => {
-        if (rowIndex === toRow && cellIndex === toCell) 
-        return game.turn //get this function to return the index here? 
-        else return cell
-      })
-    )
-    
-    //use object.keys to get the indexes
+
+    console.log('game test:', game)
 
 
-    updateGame(game.id, board)
+    const coordinates1 = {toRow, toCell}
+    
+
+    console.log("game.turn test:", game.turn)
+
+    console.log("coordinates1 test:", coordinates1)
+    
+    // const board = game.board.map(
+    //   (row, rowIndex) => row.map((cell, cellIndex) => {
+    //     if (rowIndex === toRow && cellIndex === toCell) 
+    //     return game.turn //get this function to return the index here? 
+    //     else return cell
+    //   })
+    // )
+
+    console.log('makeMove after test!')
+
+    updateGame(game.id, game.board1, game.board2, coordinates1)
+
   }
 
-
-    //record coordinates - how?? to pass to hitCell function
-    //we need to add an event listener?
-    // coordinate1 = game.board.map()
-    
-    // getCoordinates = (e) => {
-    //   target = e.target.value
-    //   return target
-    // }
-
-    // Hit the Ship function added by Dasha, still in process
-    //I will provide a function that returns coordinates (taken from the key value in GameDetails)
-    //after hitCell returns userClicked we will know which cell the user clicked on
-    //we can then pass userClicked as props to the presentational children componenents
-    //and when we do that we can render smth displaying a hit in the presentational component once that has been done
-
-    userHit = (coordinate1, coordinate2) => {
-      if (this.game.turn && this.cell !== null) {
-        return false
-      } 
-      if (this.game.turn && this.cell === null) {
-        return true
-      }
-    }
     
 
   render() {
+    console.log("game details this.props test:", this.props)
+
+    console.log('i am render of gamedetails')
 
     const {game, users, authenticated, userId} = this.props
 
@@ -84,6 +69,8 @@ class GameDetails extends PureComponent {
     const winner = game.players
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0]
+
+    const board = game.board1 // game.board2
 
     return (<Paper className="outer-paper">
       <h1>Game #{game.id}</h1>
@@ -108,14 +95,22 @@ class GameDetails extends PureComponent {
       }
 
       <hr />
-
+      
+      board 1
       {
         game.status !== 'pending' &&
-        <Board board={game.board} makeMove={this.makeMove} />
+        <Board board={game.board1} makeMove={this.makeMove} />
+      }
+
+      board 2
+      {
+        game.status !== 'pending' &&
+        <Board board={game.board2} makeMove={this.makeMove} />
       }
     </Paper>)
     
   } 
+
 }
 
 //added userClicked state to props
@@ -124,7 +119,8 @@ const mapStateToProps = (state, props) => ({
   userId: state.currentUser && userId(state.currentUser.jwt),
   game: state.games && state.games[props.match.params.id],
   users: state.users,
-  userHit: state.userHit
+  userHit: state.userHit,
+  coordinates: state.coordinates
 })
 
 

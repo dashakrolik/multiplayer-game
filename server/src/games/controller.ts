@@ -8,16 +8,6 @@ import {calculateWinner, playerHit, samplePlayBoard1, samplePlayBoard2} from './
 // import { Validate } from 'class-validator'
 import {io} from '../index'
 
-
-// class GameUpdate {
-
-//   // @Validate(IsBoard, {
-//   //   message: 'Not a valid board'
-//   // })
-//   board: Board
-//   coordinates: {}
-// }
-
 @JsonController()
 export default class GameController {
 
@@ -60,6 +50,11 @@ export default class GameController {
     if (!game) throw new BadRequestError(`Game does not exist`)
     if (game.status !== 'pending') throw new BadRequestError(`Game is already started`)
 
+
+
+
+
+
     game.status = 'started'
     await game.save()
 
@@ -89,6 +84,7 @@ export default class GameController {
     @Param('id') gameId: number,
     @Body() update
   ) {
+    console.log('update test:', update)
     const game = await Game.findOneById(gameId)
     if (!game) throw new NotFoundError(`Game does not exist`)
 
@@ -111,6 +107,10 @@ export default class GameController {
         update.coordinates.toRow, 
         update.coordinates.toCell
       )
+
+
+    
+
     
     if (playerInPlay === 'y') {
       game.board1 = updatedBoardAfterMove
@@ -126,7 +126,7 @@ export default class GameController {
           game.winner = player.symbol 
           game.status = 'finished'
     }
-    // // need to figure out how to determine who's turn it is
+
     else {
       game.turn = player.symbol === 'y' ? 'z' : 'y'
     }
