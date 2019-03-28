@@ -1,27 +1,15 @@
 import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, OneToMany, ManyToOne } from 'typeorm'
 import User from '../users/entity'
+import { IsBoard } from './logic'
 
-export type Symbol = 'x' | 'o' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E'
+export type Symbol = 'x' | 'o' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | null
 // figure out how to streamline the typescript definition
-export type Row = [ Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null ]
+export type Row = [ Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol ]
 export type Board = [ Row, Row, Row, Row, Row, Row, Row, Row, Row, Row ]
 
-const emptyBoard = [...Array(10)].map(x => Array(10).fill(null))
-
-const samplePlayBoard1 = [
-  [ 'A', null, null, null, null, null, 'D', 'D', 'D', null ],
-  [ 'A', null, null, null, null, null, null, null, null, null ],
-  [ 'A', null, null, null, null, null, null, null, null, null ],
-  [ 'A', null, null, null, null, null, null, null, null, null ],
-  [ 'A', null, null, 'E', 'E', null, null, null, null, null ],
-  [ null, null, null, null, null, null, null, null, null, null ],
-  [ null, null, null, null, null, null, null, null, null, 'B' ],
-  [ null, null, null, null, null, null, null, null, null, 'B' ],
-  [ null, null, null, null, null, null, null, null, null, 'B' ],
-  [ null, null, null, 'C', 'C', 'C', null, null, null, 'B' ]
-]
-
 type Status = 'pending' | 'started' | 'finished'
+
+const emptyBoard = [...Array(10)].map(x => Array(10).fill(null))
 
 @Entity()
 export class Game extends BaseEntity {
@@ -29,8 +17,11 @@ export class Game extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
-  @Column('json', {default: samplePlayBoard})
+  @Column('json')
   board1: Board
+
+  @Column('json')
+  board2: Board
 
   @Column('char', {length:1, default: 'y'})
   turn: Symbol
@@ -48,7 +39,7 @@ export class Game extends BaseEntity {
 }
 
 @Entity()
-@Index(['game', 'user', 'symbol'], {unique:true})
+@Index(['game', 'user', 'symbol', 'board'], {unique:true})
 export class Player extends BaseEntity {
 
   @PrimaryGeneratedColumn()
@@ -63,6 +54,10 @@ export class Player extends BaseEntity {
   @Column('char', {length: 1})
   symbol: Symbol
 
+  @Column('text')
+  board: string
+
   @Column('integer', { name: 'user_id' })
   userId: number
 }
+

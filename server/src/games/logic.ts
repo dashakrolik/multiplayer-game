@@ -1,5 +1,31 @@
 import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator'
-import { Board, Symbol, Row } from './entities'
+import { Board, Symbol, Player, Row, Game } from './entities'
+
+export const samplePlayBoard1: Board = [
+  [ 'A', null, null, null, null, null, 'D', 'D', 'D', null ],
+  [ 'A', null, null, null, null, null, null, null, null, null ],
+  [ 'A', null, null, null, null, null, null, null, null, null ],
+  [ 'A', null, null, null, null, null, null, null, null, null ],
+  [ 'A', null, null, 'E', 'E', null, null, null, null, null ],
+  [ null, null, null, null, null, null, null, null, null, null ],
+  [ null, null, null, null, null, null, null, null, null, 'B' ],
+  [ null, null, null, null, null, null, null, null, null, 'B' ],
+  [ null, null, null, null, null, null, null, null, null, 'B' ],
+  [ null, null, null, 'C', 'C', 'C', null, null, null, 'B' ]
+]
+
+export const samplePlayBoard2: Board = [
+  [ 'E', 'E', null, null, null, null, null, null, null, null ],
+  [ null, null, null, 'C', 'C', 'C', null, null, 'A', null ],
+  [ null, null, null, null, null, null, null, null, 'A', null ],
+  [ null, null, null, null, null, null, null, null, 'A', null ],
+  [ null, 'D', null, null, null, null, null, null, 'A', null ],
+  [ null, 'D', null, null, null, null, null, null, 'A', null ],
+  [ null, 'D', null, null, null, null, null, null, null, null ],
+  [ null, null, null, null, null, null, null, null, null, null ],
+  [ null, null, null, null, null, null, null, null, null, null ],
+  [ null, null, null,'B', 'B', 'B', 'B', null, null, null ]
+]
 
 @ValidatorConstraint()
 export class IsBoard implements ValidatorConstraintInterface {
@@ -68,12 +94,12 @@ console.log("Shot already fired at these coordinates")
 }
 
 // need to connect board to a user
-export const calculateWinner = (board: Board, user) => {
+export const calculateWinner = (board: Board) => {
   // a winner is defined by 17 successful hits
   const totalHits =  board.reduce((aggregator, array) => 
           aggregator + array.reduce((aggregator2, cell: Symbol | null) => 
             (cell === 'x') ? aggregator2 + 1 : aggregator2 + 0, 0), 0)
-  return totalHits === 17
+  return (totalHits === 17) 
 }
 
 // export const finished = (board: Board): boolean =>
