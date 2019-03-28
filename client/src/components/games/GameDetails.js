@@ -49,14 +49,13 @@ class GameDetails extends PureComponent {
 
   }
 
-    
-
   render() {
     console.log("game details this.props test:", this.props)
 
     console.log('i am render of gamedetails')
 
     const {game, users, authenticated, userId} = this.props
+    console.log("GAME:", game)
 
     if (!authenticated) return (
 			<Redirect to="/login" />
@@ -103,11 +102,11 @@ class GameDetails extends PureComponent {
         <Board board={game.board1} makeMove={this.makeMove} virusImage={this.virusImage}/>
       }
 
-      board 2
+      {/* board 2
       {
         game.status !== 'pending' &&
         <Board board={game.board2} makeMove={this.makeMove} />
-      }
+      } */}
     </Paper>)
     
   } 

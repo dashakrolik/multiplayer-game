@@ -1,5 +1,6 @@
 import React from 'react'
 import './Board.css'
+import image from './killed_virus.png'
 
 
 const renderCel = (makeMove, rowIndex, cellIndex, symbol, hasTurn, virusImage) => {
@@ -27,11 +28,35 @@ export default ({board, makeMove, virusImage}) => board
       {
         cells
           .map(
-            (symbol, cellIndex) =>
-              renderCel(makeMove, rowIndex, cellIndex,symbol,false, virusImage)
-          )
+            (symbol, cellIndex) => {
+              if (symbol === 'x' || symbol === 'o'){
+              return (
+                
+                  <button
+                    className="board-tile"
+                    disabled={false}
+                    onClick={() => makeMove(rowIndex, cellIndex)}
+                    key={`${rowIndex}-${cellIndex}`}
+                  
+                  ><img src={image}></img>
+                  
+                  </button>
+              )} else {
+                return (
+                  <button
+                  className="board-tile"
+                  disabled={false}
+                  onClick={() => makeMove(rowIndex, cellIndex)}
+                  key={`${rowIndex}-${cellIndex}`}
+                
+                >{symbol && virusImage}
+                
+                </button>
+                )
+             } })
+            
       }
     </div>
   )
 
-
+  

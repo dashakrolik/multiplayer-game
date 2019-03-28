@@ -26,6 +26,10 @@ button:hover {
   background: #63008a;
 }
 
+.button-add {
+  background-image: url(/killed_virus.png);
+}
+
 
 button:active {
   box-shadow: inset 1px 1px 1px #DFDFDF;   
@@ -33,5 +37,5 @@ button:active {
 
 .our-map {
   display: flex;
-  flex-direction: 
+  /* flex-direction: */
 }

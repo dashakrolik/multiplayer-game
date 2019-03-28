@@ -2,29 +2,23 @@ import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validat
 import { Board, Symbol, Player, Row, Game } from './entities'
 
 export const samplePlayBoard1: Board = [
-  [ 'A', null, null, null, null, null, 'D', 'D', 'D', null ],
-  [ 'A', null, null, null, null, null, null, null, null, null ],
-  [ 'A', null, null, null, null, null, null, null, null, null ],
-  [ 'A', null, null, null, null, null, null, null, null, null ],
-  [ 'A', null, null, 'E', 'E', null, null, null, null, null ],
-  [ null, null, null, null, null, null, null, null, null, null ],
-  [ null, null, null, null, null, null, null, null, null, 'B' ],
-  [ null, null, null, null, null, null, null, null, null, 'B' ],
-  [ null, null, null, null, null, null, null, null, null, 'B' ],
-  [ null, null, null, 'C', 'C', 'C', null, null, null, 'B' ]
+  [ 'A', null, null, null, 'D', 'D', 'D'],
+  [ 'A', null, null, null, null, null, null],
+  [ 'A', null, 'C', 'C', 'C', null, null],
+  [ 'A', null, null, null, null, null, 'B'],
+  [ 'A', null, null, 'E', 'E', null, 'B'],
+  [ null, null, null, null, null, null, 'B' ],
+  [ null, null, null, null, null, null, 'B' ],
 ]
 
 export const samplePlayBoard2: Board = [
-  [ 'E', 'E', null, null, null, null, null, null, null, null ],
-  [ null, null, null, 'C', 'C', 'C', null, null, 'A', null ],
-  [ null, null, null, null, null, null, null, null, 'A', null ],
-  [ null, null, null, null, null, null, null, null, 'A', null ],
-  [ null, 'D', null, null, null, null, null, null, 'A', null ],
-  [ null, 'D', null, null, null, null, null, null, 'A', null ],
-  [ null, 'D', null, null, null, null, null, null, null, null ],
-  [ null, null, null, null, null, null, null, null, null, null ],
-  [ null, null, null, null, null, null, null, null, null, null ],
-  [ null, null, null,'B', 'B', 'B', 'B', null, null, null ]
+  [ null, null, 'C', 'C', 'C', null, 'A'],
+  [ null, null, null, null, null, null, 'A'],
+  [ null, 'D', null, 'E', 'E', null, 'A'],
+  [ null, 'D', null, null, null, null, 'A'],
+  [ null, 'D', null, null, null, null, 'A'],
+  [ null,  null, null, null, null, null, null ],
+  [ 'B', 'B', 'B', 'B', null, null, null ]
 ]
 
 @ValidatorConstraint()
@@ -32,9 +26,9 @@ export class IsBoard implements ValidatorConstraintInterface {
 
   validate(board: Board) {
     const symbols = [ 'x', 'o', 'y', 'z', 'A', 'B', 'C', 'D', 'E', null ]
-    return board.length === 10 &&
+    return board.length === 7 &&
       board.every(row =>
-        row.length === 10 &&
+        row.length === 7 &&
         row.every(symbol => symbols.includes(symbol))
       )
   }
@@ -79,14 +73,12 @@ const ships = {
   }
 }
 
-
-
 export const playerHit = (board: Board, 
   coordinate1: number, 
   coordinate2: number) =>  {
 let targetCell = board[coordinate1][coordinate2];
 // missed shot
-(targetCell === null) ? targetCell = 'o' :
+(targetCell === null) ? targetCell = 'o' : 
 // successful hit
 (targetCell === 'A' || targetCell === 'B' || targetCell === 'C' || 
 targetCell === 'D' || targetCell === 'E') ? targetCell = 'x' :
