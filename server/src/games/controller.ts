@@ -8,16 +8,6 @@ import {calculateWinner, samplePlayBoard1, samplePlayBoard2} from './logic'
 // import { Validate } from 'class-validator'
 import {io} from '../index'
 
-
-class GameUpdate {
-
-  // @Validate(IsBoard, {
-  //   message: 'Not a valid board'
-  // })
-  board1: Board
-  board2: Board
-}
-
 @JsonController()
 export default class GameController {
 
@@ -92,8 +82,9 @@ export default class GameController {
   async updateGame(
     @CurrentUser() user: User,
     @Param('id') gameId: number,
-    @Body() update: GameUpdate
+    @Body() update
   ) {
+    console.log('update test:', update)
     const game = await Game.findOneById(gameId)
     if (!game) throw new NotFoundError(`Game does not exist`)
 

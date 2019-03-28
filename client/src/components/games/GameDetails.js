@@ -24,37 +24,34 @@ class GameDetails extends PureComponent {
   makeMove = (toRow, toCell) => {
     const {game, updateGame} = this.props
 
+    console.log('game test:', game)
+
 
     const coordinates1 = {toRow, toCell}
     
 
-    console.log(game.turn)
+    console.log("game.turn test:", game.turn)
 
-    console.log(coordinates1)
-  
-    if (game.turn) {
-      const coordinates = {toRow, toCell}
-      return coordinates
-    }
+    console.log("coordinates1 test:", coordinates1)
     
-    const board = game.board.map(
-      (row, rowIndex) => row.map((cell, cellIndex) => {
-        if (rowIndex === toRow && cellIndex === toCell) 
-        return game.turn //get this function to return the index here? 
-        else return cell
-      })
-    )
+    // const board = game.board.map(
+    //   (row, rowIndex) => row.map((cell, cellIndex) => {
+    //     if (rowIndex === toRow && cellIndex === toCell) 
+    //     return game.turn //get this function to return the index here? 
+    //     else return cell
+    //   })
+    // )
 
-    console.log(coordinates1)
-    console.log(this.coordinates)
+    console.log('makeMove after test!')
 
-    updateGame(game.id, board, coordinates1)
+    updateGame(game.id, game.board1, game.board2, coordinates1)
 
   }
 
     
 
   render() {
+    console.log("game details this.props test:", this.props)
 
     console.log('i am render of gamedetails')
 

@@ -10,7 +10,7 @@ const renderCel = (makeMove, rowIndex, cellIndex, symbol, hasTurn) => {
       disabled={hasTurn}
       onClick={() => makeMove(rowIndex, cellIndex)}
       key={`${rowIndex}-${cellIndex}`}
-    >{symbol || `Cell ${cellIndex} Row ${rowIndex}`}</button>
+    >{symbol}</button>
   )
 }
 
