@@ -30,3 +30,8 @@ button:hover {
 button:active {
   box-shadow: inset 1px 1px 1px #DFDFDF;   
 }
+
+.our-map {
+  display: flex;
+  flex-direction: 
+}
