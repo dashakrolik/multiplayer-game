@@ -2,33 +2,30 @@ import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validat
 import { Board, Symbol, Player, Row, Game } from './entities'
 
 export const samplePlayBoard1: Board = [
-  [ 'A', null, null, null, 'D', 'D', 'D'],
-  [ 'A', null, null, null, null, null, null],
-  [ 'A', null, 'C', 'C', 'C', null, null],
-  [ 'A', null, null, null, null, null, 'B'],
-  [ 'A', null, null, 'E', 'E', null, 'B'],
-  [ null, null, null, null, null, null, 'B' ],
-  [ null, null, null, null, null, null, 'B' ],
+  [ 'A', null, 'C', 'C','C'],
+  [ 'A', null, null, null, null],
+  [ 'A', null, 'B', 'B', 'B'],
+  [ 'A', null, null, null, null],
+  [ 'A', null, null, null, null]
 ]
 
 export const samplePlayBoard2: Board = [
-  [ null, null, 'C', 'C', 'C', null, 'A'],
-  [ null, null, null, null, null, null, 'A'],
-  [ null, 'D', null, 'E', 'E', null, 'A'],
-  [ null, 'D', null, null, null, null, 'A'],
-  [ null, 'D', null, null, null, null, 'A'],
-  [ null,  null, null, null, null, null, null ],
-  [ 'B', 'B', 'B', 'B', null, null, null ]
+  [ 'C', 'C', 'C', null, 'A'],
+  [ null, null, null, null, 'A'],
+  [ null, null, null, null, 'A'],
+  [ null, null, null, null, 'A'],
+  [ 'B', 'B', 'B', null, 'A']
+  
 ]
 
 @ValidatorConstraint()
 export class IsBoard implements ValidatorConstraintInterface {
 
   validate(board: Board) {
-    const symbols = [ 'x', 'o', 'y', 'z', 'A', 'B', 'C', 'D', 'E', null ]
-    return board.length === 7 &&
+    const symbols = [ 'x', 'o', 'y', 'z', 'A', 'B', 'C', null ]
+    return board.length === 5 &&
       board.every(row =>
-        row.length === 7 &&
+        row.length === 5 &&
         row.every(symbol => symbols.includes(symbol))
       )
   }
@@ -62,39 +59,25 @@ const ships = {
   "Cruiser": {
     shipSymbol: 'C',
     length: 3
-  },
-  "Submarine": {
-    shipSymbol: 'D',
-    length: 3
-  },
-  "Destroyer": {
-    shipSymbol: 'E',
-    length: 2
   }
 }
-
+// missed shot: 'o' successful shot: 'x'
 export const playerHit = (board: Board, 
   coordinate1: number, 
   coordinate2: number) =>  {
-let targetCell = board[coordinate1][coordinate2];
-// missed shot
-(targetCell === null) ? targetCell = 'o' : 
-// successful hit
-(targetCell === 'A' || targetCell === 'B' || targetCell === 'C' || 
-targetCell === 'D' || targetCell === 'E') ? targetCell = 'x' :
-// previous target (targetCell === 'x' || targetCell === 'o') 
-targetCell
-board[coordinate1][coordinate2] = targetCell
-return board
+    let targetCell = board[coordinate1][coordinate2];
+    (targetCell === null) ? targetCell = 'o' : 
+    (targetCell === 'A' || targetCell === 'B' || targetCell === 'C') 
+    ? targetCell = 'x' : targetCell
+    board[coordinate1][coordinate2] = targetCell
+    return board
 }
 
-// need to connect board to a user
 export const calculateWinner = (board: Board) => {
-  // a winner is defined by 17 successful hits
   const totalHits =  board.reduce((aggregator, array) => 
           aggregator + array.reduce((aggregator2, cell: Symbol | null) => 
             (cell === 'x') ? aggregator2 + 1 : aggregator2 + 0, 0), 0)
-  return (totalHits === 17) 
+  return (totalHits === 11) 
 }
 
 // export const finished = (board: Board): boolean =>

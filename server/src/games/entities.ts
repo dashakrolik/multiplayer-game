@@ -2,10 +2,10 @@ import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, OneToMany, M
 import User from '../users/entity'
 // import { IsBoard } from './logic'
 
-export type Symbol = 'x' | 'o' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | null
+export type Symbol = 'x' | 'o' | 'y' | 'z' | 'A' | 'B' | 'C' | null
 // figure out how to streamline the typescript definition
-export type Row = [ Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol]
-export type Board = [ Row, Row, Row, Row, Row, Row, Row]
+export type Row = [ Symbol, Symbol, Symbol, Symbol, Symbol]
+export type Board = [ Row, Row, Row, Row, Row]
 
 type Status = 'pending' | 'started' | 'finished'
 
