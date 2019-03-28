@@ -17,10 +17,10 @@ export class Game extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
-  @Column('json')
+  @Column('json', {nullable: true})
   board1: Board
 
-  @Column('json')
+  @Column('json',  {nullable: true})
   board2: Board
 
   @Column('char', {length:1, default: 'y'})
@@ -54,7 +54,7 @@ export class Player extends BaseEntity {
   @Column('char', {length: 1})
   symbol: Symbol
 
-  @Column('text')
+  @Column('text', {nullable: true})
   board: string
 
   @Column('integer', { name: 'user_id' })
