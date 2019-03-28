@@ -4,16 +4,18 @@ import {
 } from 'routing-controllers'
 import User from '../users/entity'
 import { Game, Player, Board } from './entities'
-// import {IsBoard, isValidTransition, calculateWinner, finished} from './logic'
+import {calculateWinner, samplePlayBoard1, samplePlayBoard2} from './logic'
 // import { Validate } from 'class-validator'
 import {io} from '../index'
+
 
 class GameUpdate {
 
   // @Validate(IsBoard, {
   //   message: 'Not a valid board'
   // })
-  board: Board
+  board1: Board
+  board2: Board
 }
 
 @JsonController()
@@ -25,12 +27,16 @@ export default class GameController {
   async createGame(
     @CurrentUser() user: User
   ) {
-    const entity = await Game.create().save()
+    const entity = await Game.create({
+      board1: samplePlayBoard1,
+      board2: samplePlayBoard2
+    }).save()
 
     await Player.create({
+      board: "board1",
       game: entity, 
       user,
-      symbol: 'x'
+      symbol: 'y'
     }).save()
 
     const game = await Game.findOneById(entity.id)
@@ -58,9 +64,11 @@ export default class GameController {
     await game.save()
 
     const player = await Player.create({
+      
       game, 
+      board2: samplePlayBoard2,
       user,
-      symbol: 'o'
+      symbol: 'z'
     }).save()
 
     io.emit('action', {
@@ -92,25 +100,36 @@ export default class GameController {
     // if (!isValidTransition(player.symbol, game.board, update.board)) {
     //   throw new BadRequestError(`Invalid move`)
     // }    
-
-    // const winner = calculateWinner(update.board)
+    
+    let winner = null
+    const checkBoard1 = calculateWinner(update.board1);
+    const checkBoard2 = calculateWinner(update.board2);
+    if ((checkBoard1 === true && game[player.board] === 'board1') ||
+    (checkBoard2 === true && game[player.board] === 'board2')) {
+          game.winner = player.symbol 
+          game.status = 'finished'
+    }
+  
     // if (winner) {
-    //   game.winner = winner
+    //   // //need to define who the winner is
+    //   // game.winner = winner
     //   game.status = 'finished'
     // }
     // else if (finished(update.board)) {
     //   game.status = 'finished'
     // }
-    // else {
-    //   game.turn = player.symbol === 'x' ? 'o' : 'x'
-    // }
-    // game.board = update.board
-    // await game.save()
+    // // need to figure out how to determine who's turn it is
+    else {
+      game.turn = player.symbol === 'y' ? 'z' : 'y'
+    }
+    game.board1 = update.board1
+    game.board2 = update.board2
+    await game.save()
     
-    // io.emit('action', {
-    //   type: 'UPDATE_GAME',
-    //   payload: game
-    // })
+    io.emit('action', {
+      type: 'UPDATE_GAME',
+      payload: game
+    })
 
     return game
   }
