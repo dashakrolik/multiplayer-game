@@ -19,10 +19,18 @@ class GameDetails extends PureComponent {
 
   joinGame = () => this.props.joinGame(this.props.game.id)
 
-  //the coordinates are stored here we think
+
   makeMove = (toRow, toCell) => {
     const {game, updateGame} = this.props
+
+
+    const coordinates1 = {toRow, toCell}
+    
+
     console.log(game.turn)
+
+    console.log(coordinates1)
+  
     if (game.turn) {
       const coordinates = {toRow, toCell}
       return coordinates
@@ -36,37 +44,13 @@ class GameDetails extends PureComponent {
         else return cell
       })
     )
-    
-    //use object.keys to get the indexes
+    console.log(coordinates1)
+    console.log(this.coordinates)
 
+    updateGame(game.id, board, coordinates1)
 
-    updateGame(game.id, board)
   }
 
-
-    //record coordinates - how?? to pass to hitCell function
-    //we need to add an event listener?
-    // coordinate1 = game.board.map()
-    
-    // getCoordinates = (e) => {
-    //   target = e.target.value
-    //   return target
-    // }
-
-    // Hit the Ship function added by Dasha, still in process
-    //I will provide a function that returns coordinates (taken from the key value in GameDetails)
-    //after hitCell returns userClicked we will know which cell the user clicked on
-    //we can then pass userClicked as props to the presentational children componenents
-    //and when we do that we can render smth displaying a hit in the presentational component once that has been done
-
-    userHit = (coordinate1, coordinate2) => {
-      if (this.game.turn && this.cell !== null) {
-        return false
-      } 
-      if (this.game.turn && this.cell === null) {
-        return true
-      }
-    }
     
 
   render() {

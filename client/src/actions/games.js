@@ -68,7 +68,9 @@ export const createGame = () => (dispatch, getState) => {
     .catch(err => console.error(err))
 }
 
-export const updateGame = (gameId, board) => (dispatch, getState) => {
+
+//added coordinates to updateGames
+export const updateGame = (gameId, board, coordinates) => (dispatch, getState) => {
   const state = getState()
   const jwt = state.currentUser.jwt
 
@@ -77,16 +79,8 @@ export const updateGame = (gameId, board) => (dispatch, getState) => {
   request
     .patch(`${baseUrl}/games/${gameId}`)
     .set('Authorization', `Bearer ${jwt}`)
-    .send({ board })
+    .send({ board }, {coordinates})
     .then(_ => dispatch(updateGameSuccess()))
     .catch(err => console.error(err))
 }
 
-
-//@DARLENE, I am working on this action creator, still in process. If uncommented it breaks everything
-// export const sendCoordinates = (gameId, board) => (dispatc, getState) => {
-//   const state = getState()
-//   const jwt = state.currentUser.jwt
-
-//   if (isExpired(jwt)) return dispatch(logout())
-// }
