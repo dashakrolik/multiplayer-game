@@ -63,8 +63,8 @@ const ships = {
 }
 // missed shot: 'o' successful shot: 'x'
 export const playerHit = (board: Board, 
-  coordinate1: number, 
-  coordinate2: number) =>  {
+                          coordinate1: number, 
+                          coordinate2: number) =>  {
     let targetCell = board[coordinate1][coordinate2];
     (targetCell === null) ? targetCell = 'o' : 
     (targetCell === 'A' || targetCell === 'B' || targetCell === 'C') 

@@ -102,11 +102,11 @@ class GameDetails extends PureComponent {
         <Board board={game.board1} makeMove={this.makeMove} virusImage={this.virusImage}/>
       }
 
-      {/* board 2
+      board 2
       {
         game.status !== 'pending' &&
-        <Board board={game.board2} makeMove={this.makeMove} />
-      } */}
+        <Board board={game.board2} makeMove={this.makeMove} virusImage={this.virusImage} />
+      }
     </Paper>)
     
   } 

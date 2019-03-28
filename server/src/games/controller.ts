@@ -50,7 +50,6 @@ export default class GameController {
     if (!game) throw new BadRequestError(`Game does not exist`)
     if (game.status !== 'pending') throw new BadRequestError(`Game is already started`)
 
-
     game.status = 'started'
     await game.save()
 
@@ -87,10 +86,7 @@ export default class GameController {
 
     if (!player) throw new ForbiddenError(`You are not part of this game`)
     if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
-    // if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)
-    // if (!isValidTransition(player.symbol, game.board, update.board)) {
-    //   throw new BadRequestError(`Invalid move`)
-    // }    
+    
     let boardInPlay = game.board1
     let playerInPlay = 'y'
     if (player.symbol === 'z'){
@@ -109,12 +105,17 @@ export default class GameController {
       game.board2 = updatedBoardAfterMove
     }
 
-    const checkBoard1 = calculateWinner(game.board1);
-    const checkBoard2 = calculateWinner(game.board2);
-    if ((checkBoard1 === true && game[player.board] === 'board1') ||
-    (checkBoard2 === true && game[player.board] === 'board2')) {
-          game.winner = player.symbol 
-          game.status = 'finished'
+    // const checkBoard1 = calculateWinner(game.board1);
+    // const checkBoard2 = calculateWinner(game.board2);
+    // if ((checkBoard1 === true && game[player.board] === 'board1') ||
+    // (checkBoard2 === true && game[player.board] === 'board2')) {
+    //       game.winner = player.symbol 
+    //       game.status = 'finished'
+    // }
+    const checkWinner = calculateWinner(boardInPlay)
+    if (checkWinner) {
+      game.winner = player.symbol
+      game.status = 'finished'
     }
     else {
       game.turn = player.symbol === 'y' ? 'z' : 'y'
