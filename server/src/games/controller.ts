@@ -60,13 +60,18 @@ export default class GameController {
     if (!game) throw new BadRequestError(`Game does not exist`)
     if (game.status !== 'pending') throw new BadRequestError(`Game is already started`)
 
+
+
+
+
+
     game.status = 'started'
     await game.save()
 
     const player = await Player.create({
       
       game, 
-      board2: samplePlayBoard2,
+      board: 'board2',
       user,
       symbol: 'z'
     }).save()
@@ -100,6 +105,8 @@ export default class GameController {
     // if (!isValidTransition(player.symbol, game.board, update.board)) {
     //   throw new BadRequestError(`Invalid move`)
     // }    
+
+    
     
     let winner = null
     const checkBoard1 = calculateWinner(update.board1);
@@ -110,15 +117,6 @@ export default class GameController {
           game.status = 'finished'
     }
   
-    // if (winner) {
-    //   // //need to define who the winner is
-    //   // game.winner = winner
-    //   game.status = 'finished'
-    // }
-    // else if (finished(update.board)) {
-    //   game.status = 'finished'
-    // }
-    // // need to figure out how to determine who's turn it is
     else {
       game.turn = player.symbol === 'y' ? 'z' : 'y'
     }

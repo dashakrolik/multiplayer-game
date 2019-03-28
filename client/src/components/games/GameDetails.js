@@ -14,6 +14,7 @@ class GameDetails extends PureComponent {
     if (this.props.authenticated) {
       if (this.props.game === null) this.props.getGames()
       if (this.props.users === null) this.props.getUsers()
+      
     }
   }
 
@@ -34,7 +35,6 @@ class GameDetails extends PureComponent {
     if (game.turn) {
       const coordinates = {toRow, toCell}
       return coordinates
-    //make an action creator and a reducer for this function
     }
     
     const board = game.board.map(
@@ -44,6 +44,7 @@ class GameDetails extends PureComponent {
         else return cell
       })
     )
+
     console.log(coordinates1)
     console.log(this.coordinates)
 
@@ -54,6 +55,8 @@ class GameDetails extends PureComponent {
     
 
   render() {
+
+    console.log('i am render of gamedetails')
 
     const {game, users, authenticated, userId} = this.props
 
@@ -69,6 +72,8 @@ class GameDetails extends PureComponent {
     const winner = game.players
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0]
+
+    const board = game.board1 // game.board2
 
     return (<Paper className="outer-paper">
       <h1>Game #{game.id}</h1>
@@ -93,14 +98,22 @@ class GameDetails extends PureComponent {
       }
 
       <hr />
-
+      
+      board 1
       {
         game.status !== 'pending' &&
-        <Board board={game.board} makeMove={this.makeMove} />
+        <Board board={game.board1} makeMove={this.makeMove} />
+      }
+
+      board 2
+      {
+        game.status !== 'pending' &&
+        <Board board={game.board2} makeMove={this.makeMove} />
       }
     </Paper>)
     
   } 
+
 }
 
 //added userClicked state to props
@@ -109,7 +122,8 @@ const mapStateToProps = (state, props) => ({
   userId: state.currentUser && userId(state.currentUser.jwt),
   game: state.games && state.games[props.match.params.id],
   users: state.users,
-  userHit: state.userHit
+  userHit: state.userHit,
+  coordinates: state.coordinates
 })
 
 
