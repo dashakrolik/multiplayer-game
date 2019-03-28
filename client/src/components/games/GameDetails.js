@@ -24,7 +24,8 @@ class GameDetails extends PureComponent {
     const {game, updateGame} = this.props
     console.log(game.turn)
     if (game.turn) {
-      return console.log(toRow, toCell)
+      const coordinates = {toRow, toCell}
+      return coordinates
     //make an action creator and a reducer for this function
     }
     
