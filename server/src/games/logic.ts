@@ -5,7 +5,7 @@ import { Board, Symbol, Row } from './entities'
 export class IsBoard implements ValidatorConstraintInterface {
 
   validate(board: Board) {
-    const symbols = [ 'x', 'o', 'A', 'B', 'C', 'D', 'E', null ]
+    const symbols = [ 'x', 'o', 'y', 'z', 'A', 'B', 'C', 'D', 'E', null ]
     return board.length === 10 &&
       board.every(row =>
         row.length === 10 &&
@@ -67,13 +67,12 @@ targetCell === 'D' || targetCell === 'E') ? targetCell = 'x' :
 console.log("Shot already fired at these coordinates") 
 }
 
-export const calculateWinner = (board: Board) => {
-  // to calculate winner we would map through each player's board and
-  // count how many successful hits are on a board
-  // a winner is defined by having 17 hits
-  const totalHits =  board.reduce((agg, arr) => 
-          agg + arr.reduce((agg2, cell: Symbol | null) => 
-            (cell === 'x') ? agg2 + 1 : agg2 + 0, 0), 0)
+// need to connect board to a user
+export const calculateWinner = (board: Board, user) => {
+  // a winner is defined by 17 successful hits
+  const totalHits =  board.reduce((aggregator, array) => 
+          aggregator + array.reduce((aggregator2, cell: Symbol | null) => 
+            (cell === 'x') ? aggregator2 + 1 : aggregator2 + 0, 0), 0)
   return totalHits === 17
 }
 

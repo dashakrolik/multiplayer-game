@@ -1,14 +1,14 @@
 import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, OneToMany, ManyToOne } from 'typeorm'
 import User from '../users/entity'
 
-export type Symbol = 'x' | 'o' | 'A' | 'B' | 'C' | 'D' | 'E'
+export type Symbol = 'x' | 'o' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E'
 // figure out how to streamline the typescript definition
 export type Row = [ Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null ]
 export type Board = [ Row, Row, Row, Row, Row, Row, Row, Row, Row, Row ]
 
 const emptyBoard = [...Array(10)].map(x => Array(10).fill(null))
 
-const samplePlayBoard = [
+const samplePlayBoard1 = [
   [ 'A', null, null, null, null, null, 'D', 'D', 'D', null ],
   [ 'A', null, null, null, null, null, null, null, null, null ],
   [ 'A', null, null, null, null, null, null, null, null, null ],
@@ -30,9 +30,9 @@ export class Game extends BaseEntity {
   id?: number
 
   @Column('json', {default: samplePlayBoard})
-  board: Board
+  board1: Board
 
-  @Column('char', {length:1, default: 'x'})
+  @Column('char', {length:1, default: 'y'})
   turn: Symbol
 
   @Column('char', {length:1, nullable: true})
