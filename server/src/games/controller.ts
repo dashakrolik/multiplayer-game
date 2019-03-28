@@ -4,19 +4,19 @@ import {
 } from 'routing-controllers'
 import User from '../users/entity'
 import { Game, Player, Board } from './entities'
-import {calculateWinner, samplePlayBoard1, samplePlayBoard2} from './logic'
+import {calculateWinner, playerHit, samplePlayBoard1, samplePlayBoard2} from './logic'
 // import { Validate } from 'class-validator'
 import {io} from '../index'
 
 
-class GameUpdate {
+// class GameUpdate {
 
-  // @Validate(IsBoard, {
-  //   message: 'Not a valid board'
-  // })
-  board1: Board
-  board2: Board
-}
+//   // @Validate(IsBoard, {
+//   //   message: 'Not a valid board'
+//   // })
+//   board: Board
+//   coordinates: {}
+// }
 
 @JsonController()
 export default class GameController {
@@ -66,7 +66,7 @@ export default class GameController {
     const player = await Player.create({
       
       game, 
-      board2: samplePlayBoard2,
+      board: "board2",
       user,
       symbol: 'z'
     }).save()
@@ -87,7 +87,7 @@ export default class GameController {
   async updateGame(
     @CurrentUser() user: User,
     @Param('id') gameId: number,
-    @Body() update: GameUpdate
+    @Body() update
   ) {
     const game = await Game.findOneById(gameId)
     if (!game) throw new NotFoundError(`Game does not exist`)
@@ -100,32 +100,39 @@ export default class GameController {
     // if (!isValidTransition(player.symbol, game.board, update.board)) {
     //   throw new BadRequestError(`Invalid move`)
     // }    
+    let aBoard = game.board1
+    let playerInPlay = 'y'
+    if (player.symbol === 'z'){
+      aBoard = game.board2
+      playerInPlay = 'z'
+    }
+    const updatedBoardAfterMove = playerHit(
+        aBoard,
+        update.coordinates.toRow, 
+        update.coordinates.toCell
+      )
     
+    if (playerInPlay === 'y') {
+      game.board1 = updatedBoardAfterMove
+    } else {
+      game.board2 = updatedBoardAfterMove
+    }
+
     let winner = null
-    const checkBoard1 = calculateWinner(update.board1);
-    const checkBoard2 = calculateWinner(update.board2);
+    const checkBoard1 = calculateWinner(game.board1);
+    const checkBoard2 = calculateWinner(game.board2);
     if ((checkBoard1 === true && game[player.board] === 'board1') ||
     (checkBoard2 === true && game[player.board] === 'board2')) {
           game.winner = player.symbol 
           game.status = 'finished'
     }
-  
-    // if (winner) {
-    //   // //need to define who the winner is
-    //   // game.winner = winner
-    //   game.status = 'finished'
-    // }
-    // else if (finished(update.board)) {
-    //   game.status = 'finished'
-    // }
     // // need to figure out how to determine who's turn it is
     else {
       game.turn = player.symbol === 'y' ? 'z' : 'y'
     }
-    game.board1 = update.board1
-    game.board2 = update.board2
+
     await game.save()
-    
+
     io.emit('action', {
       type: 'UPDATE_GAME',
       payload: game

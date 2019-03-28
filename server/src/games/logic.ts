@@ -91,6 +91,7 @@ targetCell === 'D' || targetCell === 'E') ? targetCell = 'x' :
 // previous target
 // (targetCell === 'x' || targetCell === 'o') 
 console.log("Shot already fired at these coordinates") 
+return board
 }
 
 // need to connect board to a user
