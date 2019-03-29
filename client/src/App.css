@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: orangered;
+
 }
 
 .App-logo {
@@ -32,11 +32,6 @@
   background-color: #63008a;
   color: white;
 
-}
-
-.side-by-side {
-  display:flex; 
-  flex-direction:row;
 }
 
 

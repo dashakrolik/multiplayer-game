@@ -77,9 +77,10 @@ button:active {
 h3 {
   color: white;
   background: #63008a;
-  width: 20em;
+  width: 22em;
   height: 1em;
   text-align: center;
+  position: inherit;
   padding: 1em;
   box-shadow: 1px 1px 1px rgb(97, 68, 68);
   border-radius: 30px;

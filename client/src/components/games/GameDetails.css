@@ -1,20 +1,10 @@
 .outer-paper {
   margin-top: 20px;
   margin: auto;
-  padding: 20px;
-  width: 85%;
+  padding: 50px;
+  width: 450px;
 }
 
-.side-by-side {
-  margin: auto;
-  padding: 10px;
-}
-.one {
-  float: left;
-}
-.two {
-  margin-left: 15%;
-}
 
 .winner {
   font-size: 15px;
