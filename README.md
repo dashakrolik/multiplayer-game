@@ -62,4 +62,4 @@ Open another terminal session and `cd` into the `client` directory, then run `np
 
 ### Play online
 
-For today play the app online at this [link](http://172.16.31.169:4000)
+For today play the app online at this [link](http://172.16.31.169:3000)
