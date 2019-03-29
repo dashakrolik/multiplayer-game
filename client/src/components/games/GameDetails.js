@@ -79,12 +79,13 @@ class GameDetails extends PureComponent {
     if (!game) return 'Not found'
 
     const player = game.players.find(p => p.userId === userId)
+    // const myBoardName = player.board
+    // console.log("BOARD", myBoardName)
 
     const winner = game.players
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0]
 
-    // const board = game.board1 // game.board2
 
     return (<Paper className="outer-paper">
       
@@ -111,17 +112,24 @@ class GameDetails extends PureComponent {
 
       <hr />
       
-      board 1
       {
-        game.status !== 'pending' &&
-        <Board board={game.board1} makeMove={this.makeMove}/>
+        game.status !== 'pending' && player.board === 'board1' &&
+        <div>
+            <Board board={game.board1} makeMove={this.makeMove} virusImage={this.virusImage}/>
+            <hr />
+            <ReadOnlyBoard board={game.board2} makeMove={this.makeMove} virusImage={this.virusImage} />
+        </div>
       }
-
-      board 2
+  
       {
-        game.status !== 'pending' &&
-        <ReadOnlyBoard board={game.board2} makeMove={this.makeMove} virusImage={this.virusImage} />
+        game.status !== 'pending' && player.board === 'board2' &&
+        <div>
+            <Board board={game.board2} makeMove={this.makeMove} virusImage={this.virusImage}/>
+            <hr />
+            <ReadOnlyBoard board={game.board1} makeMove={this.makeMove} virusImage={this.virusImage} />
+        </div>
       }
+  
     </Paper>)
     
   } 
