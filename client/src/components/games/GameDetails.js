@@ -18,7 +18,7 @@ class GameDetails extends PureComponent {
     }
   }
 
-  virusImage = <img src="http://i67.tinypic.com/j5knr7.png"></img>
+  virusImage = <img src="http://i67.tinypic.com/j5knr7.png" alt="viral particle"></img>
   joinGame = () => this.props.joinGame(this.props.game.id)
 
 
@@ -70,7 +70,7 @@ class GameDetails extends PureComponent {
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0]
 
-    const board = game.board1 // game.board2
+    // const board = game.board1 // game.board2
 
     return (<Paper className="outer-paper">
       <h1>Game #{game.id}</h1>

@@ -15,7 +15,6 @@ export const samplePlayBoard2: Board = [
   [ null, null, null, null, 'A'],
   [ null, null, null, null, 'A'],
   [ 'B', 'B', 'B', null, 'A']
-  
 ]
 
 @ValidatorConstraint()
@@ -79,9 +78,4 @@ export const calculateWinner = (board: Board) => {
             (cell === 'x') ? aggregator2 + 1 : aggregator2 + 0, 0), 0)
   return (totalHits === 11) 
 }
-
-// export const finished = (board: Board): boolean =>
-//   board
-//     .reduce((a,b) => a.concat(b) as Row)
-//     .every(symbol => symbol !== null)
 
