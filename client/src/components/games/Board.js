@@ -4,20 +4,22 @@ import hitImg from '../../assets/dead-particle.png'
 import missImg from '../../assets/red-cross.png'
 
 
-const renderCel = (makeMove, rowIndex, cellIndex, symbol, hasTurn, virusImage) => {
-// console.log(rowIndex, cellIndex)
-  return (
-    <button
-      className="board-tile"
-      disabled={hasTurn}
-      onClick={() => makeMove(rowIndex, cellIndex)}
-      key={`${rowIndex}-${cellIndex}`}
+
+
+// const renderCel = (makeMove, rowIndex, cellIndex, symbol, hasTurn, virusImage) => {
+// // console.log(rowIndex, cellIndex)
+//   return (
+//     <button
+//       className="board-tile"
+//       disabled={hasTurn}
+//       onClick={() => makeMove(rowIndex, cellIndex)}
+//       key={`${rowIndex}-${cellIndex}`}
     
-    >{symbol && virusImage}
+//     >{symbol && virusImage}
     
-    </button>
-  )
-}
+//     </button>
+//   )
+// }
 
 //added value1 and value2 - does not break anything YET
 export default ({board, makeMove, virusImage}) => board
@@ -35,7 +37,7 @@ export default ({board, makeMove, virusImage}) => board
                     onClick={() => makeMove(rowIndex, cellIndex)}
                     key={`${rowIndex}-${cellIndex}`}
                   
-                  ><img src={hitImg} alt="x'ed viral particle"></img>
+                  ><img src={hitImg} alt="dead viral particle"></img>
                   
                   </button>
               )} 

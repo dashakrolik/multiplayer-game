@@ -8,8 +8,18 @@ import Paper from '@material-ui/core/Paper'
 import Board from './Board'
 import ReadOnlyBoard from './ReadOnlyBoard'
 import './GameDetails.css'
+import splatSound from '../../assets/splat.wav'
 
 class GameDetails extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.onPlay=this.onPlay.bind(this)
+    this.sound = new Audio(splatSound)
+  }
+
+  onPlay(){
+    this.sound.play()
+  }
 
   componentWillMount() {
     if (this.props.authenticated) {
@@ -19,11 +29,14 @@ class GameDetails extends PureComponent {
     }
   }
 
+  
+
   virusImage = <img src="http://i67.tinypic.com/j5knr7.png" alt="viral particle"></img>
   joinGame = () => this.props.joinGame(this.props.game.id)
 
 
   makeMove = (toRow, toCell) => {
+    this.onPlay()
     const {game, updateGame} = this.props
 
     console.log('game test:', game)
@@ -74,9 +87,10 @@ class GameDetails extends PureComponent {
     // const board = game.board1 // game.board2
 
     return (<Paper className="outer-paper">
-      <h1>Game #{game.id}</h1>
-
-      <p>Status: {game.status}</p>
+      
+      <h3>Game Play: {game.status}</h3>
+      <p>Game #{game.id}</p>
+      
 
       {
         game.status === 'started' &&
@@ -92,7 +106,7 @@ class GameDetails extends PureComponent {
 
       {
         winner &&
-        <p>Winner: {users[winner].firstName}</p>
+        <h1>Winner: {users[winner].firstName}</h1>
       }
 
       <hr />
@@ -100,7 +114,7 @@ class GameDetails extends PureComponent {
       board 1
       {
         game.status !== 'pending' &&
-        <Board board={game.board1} makeMove={this.makeMove} virusImage={this.virusImage}/>
+        <Board board={game.board1} makeMove={this.makeMove}/>
       }
 
       board 2
