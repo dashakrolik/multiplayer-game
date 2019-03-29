@@ -1,15 +1,14 @@
 import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, OneToMany, ManyToOne } from 'typeorm'
 import User from '../users/entity'
-// import { IsBoard } from './logic'
 
-export type Symbol = 'x' | 'o' | 'y' | 'z' | 'A' | 'B' | 'C' | null
-// figure out how to streamline the typescript definition
+export type Symbol = 'x' | 'o' | 'y' | 'z' | 'A' | 'B' | 'C' | 'D' | 'E' | null
 export type Row = [ Symbol, Symbol, Symbol, Symbol, Symbol]
 export type Board = [ Row, Row, Row, Row, Row]
 
 type Status = 'pending' | 'started' | 'finished'
 
-const emptyBoard = [...Array(7)].map(x => Array(7).fill(null))
+// use this for random board generator
+const emptyBoard = [...Array(7)].map(_ => Array(7).fill(null))
 
 @Entity()
 export class Game extends BaseEntity {
@@ -32,8 +31,6 @@ export class Game extends BaseEntity {
   @Column('text', {default: 'pending'})
   status: Status
 
-  // this is a relation, read more about them here:
-  // http://typeorm.io/#/many-to-one-one-to-many-relations
   @OneToMany(_ => Player, player => player.game, {eager:true})
   players: Player[]
 }

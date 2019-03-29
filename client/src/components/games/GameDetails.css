@@ -2,5 +2,18 @@
   margin-top: 20px;
   margin: auto;
   padding: 20px;
-  width: 60%;
+  width: 85%;
+}
+
+
+.side-by-side {
+
+  margin: auto;
+  padding: 10px;
+}
+.one {
+  float: left;
+}
+.two {
+  margin-left: 15%;
 }
