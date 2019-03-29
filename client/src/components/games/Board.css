@@ -16,6 +16,8 @@ button {
   font-weight: bold;
   font-size: 1pt;
   outline: none;
+  -webkit-transition: padding 1s;
+  transition: 1s
 
 }
 
@@ -24,6 +26,8 @@ button:hover {
   box-shadow: 1px 1px 1px #EAEAEA;
   color: #63008a;
   background: #63008a;
+  -webkit-transition: border-radius 1s;
+  transition: 1s
 }
 
 
@@ -46,6 +50,10 @@ h3 {
   padding: 1em;
   box-shadow: 1px 1px 1px rgb(97, 68, 68);
   border-radius: 30px;
+}
+
+.ReadOnly {
+  display: flex;
 }
 
 
