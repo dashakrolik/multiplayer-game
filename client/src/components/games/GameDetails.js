@@ -54,7 +54,7 @@ class GameDetails extends PureComponent {
     if (!game) return 'Not found'
 
     const player = game.players.find(p => p.userId === userId)
-    
+
     const winner = game.players
       .filter(p => p.symbol === game.winner)
       .map(p => p.userId)[0]
@@ -63,30 +63,53 @@ class GameDetails extends PureComponent {
     return (<Paper className="outer-paper">
       
       <h3>Game Status: {game.status}</h3>
-      <p>PlagueGame #{game.id}</p>
+      <p className="gameNumber">PlagueGame #{game.id}</p>
       
 
       {
         game.status === 'started' &&
         player && player.symbol === game.turn &&
-        <div>It's your turn to kill some germs!</div>
+        <div className="yourTurn">It's your turn to kill some germs!</div>
       }
 
       {
         game.status === 'pending' &&
         game.players.map(p => p.userId).indexOf(userId) === -1 &&
-        <button onClick={this.joinGame}>Join Game</button>
+        <button className="joinButton" onClick={this.joinGame}>Join Game</button>
       }
 
       {
         winner &&
-        <h1>Winner: {users[winner].firstName}</h1>
+        <div className="winner"><br></br><p>Winner: {users[winner].firstName}</p><p></p><br></br></div>
+      }
+       {
+        winner &&
+        <div className="winner1"><p>Winner: {users[winner].firstName}</p></div>
+      }
+       {
+        winner &&
+        <div className="winner2"><p>Winner: {users[winner].firstName}</p></div>
+      }
+       {
+        winner &&
+        <div className="winner3"><br></br><p>Winner: {users[winner].firstName}</p></div>
+      }
+
+{
+        winner &&
+        <div className="winner4"><p>Winner: {users[winner].firstName}</p><p></p><br></br></div>
+      }
+
+{
+        winner &&
+        <div className="winner5"><p>Winner: {users[winner].firstName}</p></div>
       }
 
       <hr />
       
       {
         game.status !== 'pending' && player.board === 'board1' &&
+
         <div className="side-by-side">
           <div className="one">
             You:

@@ -2,6 +2,7 @@ import React from 'react'
 import './Board.css'
 import hitImg from '../../assets/dead-particle.png'
 import missImg from '../../assets/red-cross.png'
+// import missImg from '../../assets/miss-hit-splat.png'
 
 
 const renderCel = (makeMove, rowIndex, cellIndex, symbol, hasTurn, virusImage) => {
