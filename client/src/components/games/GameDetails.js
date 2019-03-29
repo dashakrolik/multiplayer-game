@@ -29,34 +29,16 @@ class GameDetails extends PureComponent {
     }
   }
 
-  
-
   virusImage = <img src="http://i67.tinypic.com/j5knr7.png" alt="viral particle"></img>
   joinGame = () => this.props.joinGame(this.props.game.id)
 
 
   makeMove = (toRow, toCell) => {
-    this.onPlay()
     const {game, updateGame} = this.props
-
-  
-
-
     const coordinates1 = {toRow, toCell}
-    
 
-    
-    // const board = game.board.map(
-    //   (row, rowIndex) => row.map((cell, cellIndex) => {
-    //     if (rowIndex === toRow && cellIndex === toCell) 
-    //     return game.turn //get this function to return the index here? 
-    //     else return cell
-    //   })
-    // )
-
-
+    this.onPlay()
     updateGame(game.id, game.board1, game.board2, coordinates1)
-
   }
 
   render() {
@@ -72,8 +54,6 @@ class GameDetails extends PureComponent {
     if (!game) return 'Not found'
 
     const player = game.players.find(p => p.userId === userId)
-    // const myBoardName = player.board
-    // console.log("BOARD", myBoardName)
 
     const winner = game.players
       .filter(p => p.symbol === game.winner)
@@ -129,23 +109,34 @@ class GameDetails extends PureComponent {
       
       {
         game.status !== 'pending' && player.board === 'board1' &&
-        <div>
-            <Board board={game.board1} makeMove={this.makeMove} virusImage={this.virusImage}/>
-            <hr />
-            <ReadOnlyBoard board={game.board2} makeMove={this.makeMove} virusImage={this.virusImage} />
-        </div>
-      }
 
-  
+        <div className="side-by-side">
+          <div className="one">
+            You:
+            <Board board={game.board1} makeMove={this.makeMove} virusImage={this.virusImage}/>
+          </div>
+          <div className="two opponent-board">
+            Your Competition:
+            <ReadOnlyBoard board={game.board2} makeMove={this.makeMove} virusImage={this.virusImage} />
+          </div>
+        </div>
+    }
+      
+
       {
         game.status !== 'pending' && player.board === 'board2' &&
-        <div>
+        <div className="side-by-side">
+          <div className="one">
+            You:
             <Board board={game.board2} makeMove={this.makeMove} virusImage={this.virusImage}/>
-            <hr />
+          </div>
+          <div className="two">
+            Your Competition:
             <ReadOnlyBoard board={game.board1} makeMove={this.makeMove} virusImage={this.virusImage} />
-        </div>
+          </div>
+      </div>
       }
-  
+      
     </Paper>)
     
   } 

@@ -3,9 +3,8 @@ import {
   Body, Patch 
 } from 'routing-controllers'
 import User from '../users/entity'
-import { Game, Player, Board } from './entities'
+import { Game, Player} from './entities'
 import {calculateWinner, playerHit, samplePlayBoard1, samplePlayBoard2} from './logic'
-// import { Validate } from 'class-validator'
 import {io} from '../index'
 
 @JsonController()
@@ -69,15 +68,13 @@ export default class GameController {
   }
 
   @Authorized()
-  // the reason that we're using patch here is because this request is not idempotent
-  // http://restcookbook.com/HTTP%20Methods/idempotency/
-  // try to fire the same requests twice, see what happens
   @Patch('/games/:id([0-9]+)')
   async updateGame(
     @CurrentUser() user: User,
     @Param('id') gameId: number,
     @Body() update
   ) {
+
     console.log('update test:', update)
     const game = await Game.findOneById(gameId)
     if (!game) throw new NotFoundError(`Game does not exist`)
@@ -93,6 +90,7 @@ export default class GameController {
       boardInPlay = game.board2
       playerInPlay = 'z'
     }
+
     const updatedBoardAfterMove = playerHit(
         boardInPlay,
         update.coordinates.toRow, 
@@ -105,19 +103,14 @@ export default class GameController {
       game.board2 = updatedBoardAfterMove
     }
 
-    // const checkBoard1 = calculateWinner(game.board1);
-    // const checkBoard2 = calculateWinner(game.board2);
-    // if ((checkBoard1 === true && game[player.board] === 'board1') ||
-    // (checkBoard2 === true && game[player.board] === 'board2')) {
-    //       game.winner = player.symbol 
-    //       game.status = 'finished'
-    // }
     const checkWinner = calculateWinner(boardInPlay)
     if (checkWinner) {
       game.winner = player.symbol
       game.status = 'finished'
     }
     else {
+      // this isn't applied in our game but it should
+      // just gonna roll with it
       game.turn = player.symbol === 'y' ? 'z' : 'y'
     }
 
@@ -127,7 +120,6 @@ export default class GameController {
       type: 'UPDATE_GAME',
       payload: game
     })
-
     return game
   }
 

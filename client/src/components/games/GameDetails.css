@@ -1,8 +1,19 @@
 .outer-paper {
   margin-top: 20px;
   margin: auto;
-  padding: 50px;
-  width: 450px;
+  padding: 20px;
+  width: 85%;
+}
+
+.side-by-side {
+  margin: auto;
+  padding: 10px;
+}
+.one {
+  float: left;
+}
+.two {
+  margin-left: 15%;
 }
 
 .winner {
