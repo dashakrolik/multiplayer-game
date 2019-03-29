@@ -83,24 +83,46 @@ class GameDetails extends PureComponent {
     return (<Paper className="outer-paper">
       
       <h3>Game Status: {game.status}</h3>
-      <p>PlagueGame #{game.id}</p>
+      <p className="gameNumber">PlagueGame #{game.id}</p>
       
 
       {
         game.status === 'started' &&
         player && player.symbol === game.turn &&
-        <div>It's your turn to kill some germs!</div>
+        <div className="yourTurn">It's your turn to kill some germs!</div>
       }
 
       {
         game.status === 'pending' &&
         game.players.map(p => p.userId).indexOf(userId) === -1 &&
-        <button onClick={this.joinGame}>Join Game</button>
+        <button className="joinButton" onClick={this.joinGame}>Join Game</button>
       }
 
       {
         winner &&
-        <div className="winner"><p>Winner: {users[winner].firstName}</p></div>
+        <div className="winner"><br></br><p>Winner: {users[winner].firstName}</p><p></p><br></br></div>
+      }
+       {
+        winner &&
+        <div className="winner1"><p>Winner: {users[winner].firstName}</p></div>
+      }
+       {
+        winner &&
+        <div className="winner2"><p>Winner: {users[winner].firstName}</p></div>
+      }
+       {
+        winner &&
+        <div className="winner3"><br></br><p>Winner: {users[winner].firstName}</p></div>
+      }
+
+{
+        winner &&
+        <div className="winner4"><p>Winner: {users[winner].firstName}</p><p></p><br></br></div>
+      }
+
+{
+        winner &&
+        <div className="winner5"><p>Winner: {users[winner].firstName}</p></div>
       }
 
       <hr />
@@ -113,7 +135,7 @@ class GameDetails extends PureComponent {
             <ReadOnlyBoard board={game.board2} makeMove={this.makeMove} virusImage={this.virusImage} />
         </div>
       }
-Board2
+
   
       {
         game.status !== 'pending' && player.board === 'board2' &&
