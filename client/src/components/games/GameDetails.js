@@ -6,6 +6,7 @@ import {getUsers} from '../../actions/users'
 import {userId} from '../../jwt'
 import Paper from '@material-ui/core/Paper'
 import Board from './Board'
+import ReadOnlyBoard from './ReadOnlyBoard'
 import './GameDetails.css'
 
 class GameDetails extends PureComponent {
@@ -105,7 +106,7 @@ class GameDetails extends PureComponent {
       board 2
       {
         game.status !== 'pending' &&
-        <Board board={game.board2} makeMove={this.makeMove} virusImage={this.virusImage} />
+        <ReadOnlyBoard board={game.board2} makeMove={this.makeMove} virusImage={this.virusImage} />
       }
     </Paper>)
     

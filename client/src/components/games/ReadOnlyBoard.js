@@ -32,7 +32,7 @@ export default ({board, makeMove, virusImage}) => board
                   <button
                     className="board-tile"
                     disabled={false}
-                    onClick={() => makeMove(rowIndex, cellIndex)}
+                    // onClick={() => makeMove(rowIndex, cellIndex)}
                     key={`${rowIndex}-${cellIndex}`}
                   
                   ><img src={hitImg} alt="x'ed viral particle"></img>
@@ -44,7 +44,7 @@ export default ({board, makeMove, virusImage}) => board
                     <button
                       className="board-tile"
                       disabled={false}
-                      onClick={() => makeMove(rowIndex, cellIndex)}
+                    //   onClick={() => makeMove(rowIndex, cellIndex)}
                       key={`${rowIndex}-${cellIndex}`}
                     
                     ><img src={missImg} alt="inkplat"></img>
@@ -57,10 +57,10 @@ export default ({board, makeMove, virusImage}) => board
                   <button
                   className="board-tile"
                   disabled={false}
-                  onClick={() => makeMove(rowIndex, cellIndex)}
+                //   onClick={() => makeMove(rowIndex, cellIndex)}
                   key={`${rowIndex}-${cellIndex}`}
                 
-                >{symbol}
+                >{symbol && virusImage}
                 
                 </button>
                 )
