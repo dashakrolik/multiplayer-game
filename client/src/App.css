@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-image: url('./assets/background.png');
+  background-color: orangered;
 }
 
 .App-logo {
@@ -26,6 +26,12 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.headerTop {
+  background-color: #63008a;
+  color: white;
+
 }
 
 

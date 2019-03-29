@@ -23,7 +23,7 @@ const renderCel = (makeMove, rowIndex, cellIndex, symbol, hasTurn, virusImage) =
 //added value1 and value2 - does not break anything YET
 export default ({board, makeMove, virusImage}) => board
   .map((cells, rowIndex, cellIndex) =>
-    <div className="our-map" key={rowIndex} value1={rowIndex} value2={cellIndex}>
+    <div className="ReadOnly" key={rowIndex} value1={rowIndex} value2={cellIndex}>
       {
         cells
           .map(
