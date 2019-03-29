@@ -1,53 +1,60 @@
 import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator'
-import { Board, Symbol, Row } from './entities'
+import { Board, Symbol } from './entities'
+
+export const samplePlayBoard1: Board = [
+  [ 'A', 'A', null, 'C','C'],
+  [ 'A', 'A', null, 'C', 'C'],
+  [ null, null, 'E', null, null],
+  [ 'D', null, null, null, null],
+  [ 'D', null, 'B', 'B', 'B']
+]
+
+export const samplePlayBoard2: Board = [
+  [ 'D', 'D', null, 'A', 'A'],
+  [ null, null, null, 'A', 'A'],
+  [ 'C', 'C', 'E', null, null],
+  [ 'C', 'C', null, null, null],
+  [ null, null, 'B', 'B', 'B']
+]
 
 @ValidatorConstraint()
 export class IsBoard implements ValidatorConstraintInterface {
 
   validate(board: Board) {
-    const symbols = [ 'x', 'o', null ]
-    return board.length === 3 &&
+    const symbols = [ 'x', 'o', 'y', 'z', 'A', 'B', 'C', 'D', 'E', null ]
+    return board.length === 5 &&
       board.every(row =>
-        row.length === 3 &&
+        row.length === 5 &&
         row.every(symbol => symbols.includes(symbol))
       )
   }
 }
 
-export const isValidTransition = (playerSymbol: Symbol, from: Board, to: Board) => {
-  const changes = from
-    .map(
-      (row, rowIndex) => row.map((symbol, columnIndex) => ({
-        from: symbol, 
-        to: to[rowIndex][columnIndex]
-      }))
-    )
-    .reduce((a,b) => a.concat(b))
-    .filter(change => change.from !== change.to)
+const emptyBoard = [...Array(7)].map(_ => Array(7).fill(null))
+// Add Random Player Board Generator HERE
 
-  return changes.length === 1 && 
-    changes[0].to === playerSymbol && 
-    changes[0].from === null
+
+// missed shot: 'o' successful shot: 'x'
+export const playerHit = (board: Board, 
+                          coordinate1: number, 
+                          coordinate2: number) =>  {
+
+    let targetCell = board[coordinate1][coordinate2];
+
+    (targetCell === null) ? targetCell = 'o' : 
+    (targetCell === 'A' || targetCell === 'B' || targetCell === 'C' ||
+    targetCell === 'D' || targetCell === 'E') 
+    ? targetCell = 'x' : targetCell
+
+    board[coordinate1][coordinate2] = targetCell
+
+    return board
 }
 
-export const calculateWinner = (board: Board): Symbol | null =>
-  board
-    .concat(
-      // vertical winner
-      [0, 1, 2].map(n => board.map(row => row[n])) as Row[]
-    )
-    .concat(
-      [
-        // diagonal winner ltr
-        [0, 1, 2].map(n => board[n][n]),
-        // diagonal winner rtl
-        [0, 1, 2].map(n => board[2-n][n])
-      ] as Row[]
-    )
-    .filter(row => row[0] && row.every(symbol => symbol === row[0]))
-    .map(row => row[0])[0] || null
+export const calculateWinner = (board: Board) => {
+  const totalHits =  board.reduce((aggregator, array) => 
+          aggregator + array.reduce((aggregator2, cell: Symbol | null) => 
+            (cell === 'x') ? aggregator2 + 1 : aggregator2 + 0, 0), 0)
+  return (totalHits === 14) 
+}
 
-export const finished = (board: Board): boolean =>
-  board
-    .reduce((a,b) => a.concat(b) as Row)
-    .every(symbol => symbol !== null)

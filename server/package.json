@@ -20,6 +20,7 @@
     "@types/koa-router": "^7.0.27",
     "@types/mocha": "^2.2.48",
     "@types/socket.io": "^1.4.32",
+    "assert": "^1.4.1",
     "bcrypt": "^3.0.4",
     "jsonwebtoken": "^8.2.0",
     "kcors": "^2.2.1",

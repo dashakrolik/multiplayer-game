@@ -1,11 +1,12 @@
 import React from 'react'
 import './Board.css'
-import hitImg from '../../assets/dead-particle.png'
+import hitImg from '../../assets/miss-hit-splat.png'
 import missImg from '../../assets/red-cross.png'
 // import missImg from '../../assets/miss-hit-splat.png'
 
 
 const renderCel = (makeMove, rowIndex, cellIndex, symbol, hasTurn, virusImage) => {
+// console.log(rowIndex, cellIndex)
   return (
     <button
       className="board-tile"
@@ -19,9 +20,10 @@ const renderCel = (makeMove, rowIndex, cellIndex, symbol, hasTurn, virusImage) =
   )
 }
 
+//added value1 and value2 - does not break anything YET
 export default ({board, makeMove, virusImage}) => board
   .map((cells, rowIndex, cellIndex) =>
-    <div className="our-map" key={rowIndex} value1={rowIndex} value2={cellIndex}>
+    <div className="ReadOnly" key={rowIndex} value1={rowIndex} value2={cellIndex}>
       {
         cells
           .map(
@@ -31,7 +33,7 @@ export default ({board, makeMove, virusImage}) => board
                   <button
                     className="board-tile"
                     disabled={false}
-                    onClick={() => makeMove(rowIndex, cellIndex)}
+                    // onClick={() => makeMove(rowIndex, cellIndex)}
                     key={`${rowIndex}-${cellIndex}`}
                   
                   ><img src={hitImg} alt="x'ed viral particle"></img>
@@ -43,7 +45,7 @@ export default ({board, makeMove, virusImage}) => board
                     <button
                       className="board-tile"
                       disabled={false}
-                      onClick={() => makeMove(rowIndex, cellIndex)}
+                    //   onClick={() => makeMove(rowIndex, cellIndex)}
                       key={`${rowIndex}-${cellIndex}`}
                     
                     ><img src={missImg} alt="inkplat"></img>
@@ -51,14 +53,15 @@ export default ({board, makeMove, virusImage}) => board
                     </button>
                 )}
               else {
+                // renderCel(makeMove, rowIndex, cellIndex, symbol, false, virusImage)
                 return (
                   <button
                   className="board-tile"
                   disabled={false}
-                  onClick={() => makeMove(rowIndex, cellIndex)}
+                //   onClick={() => makeMove(rowIndex, cellIndex)}
                   key={`${rowIndex}-${cellIndex}`}
                 
-                >{symbol}
+                >{symbol && virusImage}
                 
                 </button>
                 )

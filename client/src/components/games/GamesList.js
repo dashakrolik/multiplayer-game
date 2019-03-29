@@ -19,7 +19,7 @@ class GamesList extends PureComponent {
 
   renderGame = (game) => {
     const {users, history} = this.props
-
+  
     return (
       <Card key={game.id} className="game-card">
         <CardContent>
@@ -40,7 +40,7 @@ class GamesList extends PureComponent {
         </CardContent>
         <CardActions>
           <Button
-            size="small"
+            size="big"
             onClick={() => history.push(`/games/${game.id}`)}
           >
             Watch

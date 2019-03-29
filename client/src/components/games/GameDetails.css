@@ -1,6 +1,127 @@
 .outer-paper {
   margin-top: 20px;
   margin: auto;
-  padding: 20px;
-  width: 60%;
+  padding: 50px;
+  width: 450px;
 }
+
+
+.winner {
+  font-size: 15px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgb(255, 123, 0);
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  opacity: 0;
+  animation: scaleIn 4s infinite cubic-bezier(.6, .11, .89, .32);
+
+}
+
+.winner1 {
+  font-size: 15px;
+  text-align: center;
+  text-justify: auto;
+  border-radius: 50%;
+  background-color: rgb(255, 30, 0);
+  width: 150px;
+  height: 150px;
+  float: right;
+  opacity: 0;
+  animation: scaleIn 3s infinite cubic-bezier(.26, .11, .89, .32);
+  
+}
+
+.winner2 {
+  font-size: 15px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgb(255, 0, 255);
+  width: 130px;
+  height: 130px;
+  opacity: 0;
+  float: right;
+  animation: scaleIn 2s infinite cubic-bezier(.36, .11, .89, .32);
+  
+
+}
+
+.winner3 {
+  font-size: 15px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: deepskyblue;
+  width: 140px;
+  height: 140px;
+  opacity: 0;
+  float: right;
+  animation: scaleIn 3s infinite cubic-bezier(.36, .11, .89, .32);
+  
+
+}
+
+.winner4 {
+  font-size: 15px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgb(255, 230, 0);
+  width: 150px;
+  height: 150px;
+  opacity: 0;
+  float: right;
+  animation: scaleIn 2s infinite cubic-bezier(.36, .11, .89, .32);
+  
+
+}
+
+.winner5 {
+  font-size: 15px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgb(16, 190, 0);
+  width: 150px;
+  height: 150px;
+  float: right;
+  opacity: 0;
+  animation: scaleIn 3s infinite cubic-bezier(.36, .11, .89, .32);
+  
+
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(.5, .5);
+    opacity: .9;
+  }
+  to {
+    transform: scale(2.5, 2.5);
+    opacity: 0;
+  }
+}
+
+.joinButton {
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+  color: white;
+}
+
+.joinButton:hover {
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+  color: white;
+}
+
+.gameNumber {
+  text-align: center;
+  font-style: solid;
+}
+
+.yourTurn {
+  text-align: center;
+  font-style: solid
+}
+
+

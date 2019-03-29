@@ -1,4 +1,94 @@
 .board-tile {
-  height: 50px;
-  width: 50px;
+  height: 90px;
+  width: 90px;
 }
+
+body {
+  height: 100%;
+  width: 100%;
+  left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #ff2400, #e8b71d, #2b1de8, #dd00f3, #dd00f3);
+background-size: 1800% 1800%;
+
+-webkit-animation: rainbow 15s ease infinite;
+-z-animation: rainbow 15s ease infinite;
+-o-animation: rainbow 15s ease infinite;
+  animation: rainbow 15s ease infinite;}
+
+@-webkit-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-moz-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-o-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@keyframes rainbow { 
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+
+button {
+  color: #444444;
+  background: rgb(221, 125, 0);
+  border: 1px #DADADA solid;
+
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1pt;
+  outline: none;
+  -webkit-transition: padding 1s;
+  transition: 1s
+
+}
+
+button:hover {
+  border: 1px #C6C6C6 solid;
+  box-shadow: 1px 1px 1px #EAEAEA;
+  color: #63008a;
+  background: #63008a;
+  -webkit-transition: border-radius 1s;
+  transition: 1s
+}
+
+
+button:active {
+  box-shadow: inset 1px 1px 1px #DFDFDF;   
+}
+
+.our-map {
+  display: flex;
+  /* flex-direction: */
+  
+}
+
+h3 {
+  color: white;
+  background: #63008a;
+  width: 22em;
+  height: 1em;
+  text-align: center;
+  position: inherit;
+  padding: 1em;
+  box-shadow: 1px 1px 1px rgb(97, 68, 68);
+  border-radius: 30px;
+}
+
+.ReadOnly {
+  display: flex;
+}
+
+
+

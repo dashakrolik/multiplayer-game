@@ -12,10 +12,10 @@ const TopBar = (props) => {
   const { location, history, user } = props
 
   return (
-    <AppBar position="absolute" style={{zIndex:10}}>
-      <Toolbar>
-        <Typography variant="title" color="inherit" style={{flex: 1}}>
-          Multiplayer Tic Tac Toe
+    <AppBar position="absolute"  style={{zIndex:10}}>
+      <Toolbar className="headerTop">
+        <Typography  variant="title" color="inherit" style={{flex: 1}}>
+          Battle Plague
         </Typography>
         {
           user &&

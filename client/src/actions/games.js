@@ -68,16 +68,24 @@ export const createGame = () => (dispatch, getState) => {
     .catch(err => console.error(err))
 }
 
-export const updateGame = (gameId, board) => (dispatch, getState) => {
+
+//added coordinates to updateGames
+export const updateGame = (gameId, board1, board2, coordinates) => (dispatch, getState) => {
   const state = getState()
   const jwt = state.currentUser.jwt
 
+  console.log('before test!')
+
   if (isExpired(jwt)) return dispatch(logout())
+
+  console.log('gameId test:', gameId)
+  console.log('coordinates test:', coordinates)
 
   request
     .patch(`${baseUrl}/games/${gameId}`)
     .set('Authorization', `Bearer ${jwt}`)
-    .send({ board })
+    .send({ board1, board2, coordinates })
     .then(_ => dispatch(updateGameSuccess()))
     .catch(err => console.error(err))
 }
+
