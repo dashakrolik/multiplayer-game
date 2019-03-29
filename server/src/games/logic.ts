@@ -12,9 +12,9 @@ export const samplePlayBoard1: Board = [
 export const samplePlayBoard2: Board = [
   [ 'D', 'D', null, 'A', 'A'],
   [ null, null, null, 'A', 'A'],
-  [ null, null, null, null, null],
-  [ 'C', 'C', null, 'E', null],
-  [ 'C', 'C', null, null, null]
+  [ 'C', 'C', 'E', null, null],
+  [ 'C', 'C', null, null, null],
+  [ null, null, 'B', 'B', 'B']
 ]
 
 @ValidatorConstraint()

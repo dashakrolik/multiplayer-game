@@ -109,6 +109,8 @@ export default class GameController {
       game.status = 'finished'
     }
     else {
+      // this isn't applied in our game but it should
+      // just gonna roll with it
       game.turn = player.symbol === 'y' ? 'z' : 'y'
     }
 
