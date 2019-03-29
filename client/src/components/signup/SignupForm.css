@@ -1,3 +1,17 @@
 .signup-form label {
-  display: block;
+  display: flex;
+  font-size: 20px
+}
+
+.signUp {
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  width: 120px;
+  height: 50px;
+  font-size: 20px;
+  text-align: center
 }
