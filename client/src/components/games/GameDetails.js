@@ -100,7 +100,7 @@ class GameDetails extends PureComponent {
 
       {
         winner &&
-        <h1>Winner: {users[winner].firstName}</h1>
+        <div className="winner"><p>Winner: {users[winner].firstName}</p></div>
       }
 
       <hr />

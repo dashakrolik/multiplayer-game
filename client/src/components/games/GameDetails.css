@@ -1,6 +1,16 @@
 .outer-paper {
   margin-top: 20px;
   margin: auto;
-  padding: 20px;
-  width: 60%;
+  padding: 50px;
+  width: 450px;
+}
+
+
+.winner {
+  display: flex;
+  font-size: 3em;
+  border: 25px solid rgb(113, 180, 5);
+  padding: 25px;
+  border-radius: 60%;
+  background-color: rgb(192, 28, 50)
 }
