@@ -39,15 +39,12 @@ class GameDetails extends PureComponent {
     this.onPlay()
     const {game, updateGame} = this.props
 
-    console.log('game test:', game)
+  
 
 
     const coordinates1 = {toRow, toCell}
     
 
-    console.log("game.turn test:", game.turn)
-
-    console.log("coordinates1 test:", coordinates1)
     
     // const board = game.board.map(
     //   (row, rowIndex) => row.map((cell, cellIndex) => {
@@ -57,19 +54,15 @@ class GameDetails extends PureComponent {
     //   })
     // )
 
-    console.log('makeMove after test!')
 
     updateGame(game.id, game.board1, game.board2, coordinates1)
 
   }
 
   render() {
-    console.log("game details this.props test:", this.props)
-
-    console.log('i am render of gamedetails')
 
     const {game, users, authenticated, userId} = this.props
-    console.log("GAME:", game)
+
 
     if (!authenticated) return (
 			<Redirect to="/login" />
@@ -89,14 +82,14 @@ class GameDetails extends PureComponent {
 
     return (<Paper className="outer-paper">
       
-      <h3>Game Play: {game.status}</h3>
-      <p>Game #{game.id}</p>
+      <h3>Game Status: {game.status}</h3>
+      <p>PlagueGame #{game.id}</p>
       
 
       {
         game.status === 'started' &&
         player && player.symbol === game.turn &&
-        <div>It's your turn!</div>
+        <div>It's your turn to kill some germs!</div>
       }
 
       {
@@ -112,6 +105,8 @@ class GameDetails extends PureComponent {
 
       <hr />
       
+
+      Board1
       {
         game.status !== 'pending' && player.board === 'board1' &&
         <div>
@@ -120,7 +115,9 @@ class GameDetails extends PureComponent {
             <ReadOnlyBoard board={game.board2} makeMove={this.makeMove} virusImage={this.virusImage} />
         </div>
       }
-  
+
+Board 2
+
       {
         game.status !== 'pending' && player.board === 'board2' &&
         <div>
