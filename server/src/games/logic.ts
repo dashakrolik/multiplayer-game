@@ -30,6 +30,7 @@ export class IsBoard implements ValidatorConstraintInterface {
   }
 }
 
+const emptyBoard = [...Array(7)].map(_ => Array(7).fill(null))
 // Add Random Player Board Generator HERE
 
 

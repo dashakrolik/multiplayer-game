@@ -7,9 +7,6 @@ export type Board = [ Row, Row, Row, Row, Row]
 
 type Status = 'pending' | 'started' | 'finished'
 
-// use this for random board generator
-const emptyBoard = [...Array(7)].map(_ => Array(7).fill(null))
-
 @Entity()
 export class Game extends BaseEntity {
 
